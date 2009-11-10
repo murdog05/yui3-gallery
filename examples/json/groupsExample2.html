@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../../examples/css/validatorCss.css" type="text/css" />
+        <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"></script>
+        <script type="text/javascript" src="../../validator/Validator.js"></script>
+        <script type="text/javascript" src="../../validator/BaseInputField.js"></script>
+        <script type="text/javascript" src="../../validator/TextBaseField.js"></script>
+        <script type="text/javascript" src="../../validator/GroupBaseField.js"></script>
+        <script type="text/javascript" src="../../validator/SelectField.js"></script>
+        <script type="text/javascript" src="../../validator/DoubleField.js"></script>
+        <script type="text/javascript" src="../../validator/IntegerField.js"></script>
+        <script type="text/javascript" src="../../validator/PasswordField.js"></script>
+        <script type="text/javascript" src="../../validator/Button.js"></script>
+        <script type="text/javascript">
+            YUI().use(
+            'Validator.Form',
+            'Validator.TextBaseField',
+            'Validator.SelectField',
+            'Validator.DoubleField',
+            'Validator.IntegerField',
+            'Validator.PasswordField',
+            'Validator.GroupBaseField',
+            function(Y){
+                Y.on("domready", function () {
+                    var form = new Y.Validator(
+                        {
+                            form:'basicExample',
+                            checkOnSubmit:true,
+                            fieldJSON:[
+                                {
+                                    type:Y.GroupBaseField,
+                                    atts:{
+                                        groupDOM:'mainGroup',
+                                        minValid:2,
+                                        membersJSON:[
+                                            {
+                                                type:Y.GroupBaseField,
+                                                atts:{
+                                                    groupDOM:'passwordGroup',
+                                                    minValid:1,
+                                                    membersJSON:[
+                                                        {
+                                                            type:Y.PasswordField,
+                                                            atts:{
+                                                                inputDOM:'password',
+                                                                correctIndicator:'passwordIndicator',
+                                                                incorrectIndicator:'passwordValidator',
+                                                                requiredLevel:'med',
+                                                                minIndicator:'MinimumValidator',
+                                                                medIndicator:'MediumValidator',
+                                                                maxIndicator:'StrongValidator'
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                type:Y.GroupBaseField,
+                                                atts:{
+                                                    groupDOM:'userNameGroup',
+                                                    minValid:1,
+                                                    membersJSON:[
+                                                        {
+                                                            type:Y.TextBaseField,
+                                                            atts:{
+                                                                inputDOM:'email',
+                                                                textType:'email',
+                                                                correctIndicator:'emailIndicator',
+                                                                incorrectIndicator:'emailValidator'
+                                                            }
+                                                        },
+                                                        {
+                                                            type:Y.TextBaseField,
+                                                            atts:{
+                                                                inputDOM:'username',
+                                                                correctIndicator:'userNameIndicator',
+                                                                incorrectIndicator:'userNameValidator'
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    );
+                });
+            });
+        </script>
+  </head>
+  <body>
+     <div class="mainContainer">
+            <form id="basicExample" action="formPost.html">
+                <div class="formBody">
+                    <h2>Groups Example</h2>
+                    <div class="info">
+                        <p>
+                            This will show you how you can group inputs and require only
+                            a set number to be filled in.  Here you must choose between
+                            filling in a user name or an e-mail address.
+                        </p>
+                    </div>
+                    <div id="mainGroup">
+                        <div class="row">
+                            Fill in either a user name or email to use to login.
+                        </div>
+                        <div id="userNameGroup" class="row">
+                            <div class="column1Backing"></div>
+                            <div class="column2Backing"></div>
+                            <div class="label">Email:</div>
+                            <div class="value">
+                                <div id="emailValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="emailIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="email" type="text" />
+                                </div>
+                            </div>
+                            <div class="label">Username:</div>
+                            <div class="value">
+                                <div id="userNameValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="userNameIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="username" type="text" />
+                                </div>
+                            </div>
+                            <div class="clearDiv"></div>
+                        </div>
+                    </div>
+                    <div class="row" id="passwordGroup">
+                        <div class="column1Backing"></div>
+                        <div class="column2Backing"></div>
+                        <div class="label">Password:</div>
+                        <div class="value">
+                            <div id="passwordValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="passwordIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <div class="innerValue">
+                                <input id="password" type="password" />
+                                <span id="StrongValidator">Strong</span>
+                                <span id="MediumValidator">Good</span>
+                                <span id="MinimumValidator">Weak</span>
+                            </div>
+                        </div>
+                        <div class="label">Re-type Password:</div>
+                        <div class="value">
+                            <div id="retypePasswordValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="retypePasswordIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <input id="retypePassword" type="password" />
+                        </div>
+                        <div class="clearDiv"></div>
+                    </div>
+
+                    <div class="buttonRow">
+                        <input type="submit" class="button" value="Save" />
+                        <input type="reset" class="button" value="Reset" />
+                        <input type="button" class="button" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

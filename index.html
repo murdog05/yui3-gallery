@@ -1,0 +1,574 @@
+<!-- 
+    Document   : main
+    Created on : Apr 30, 2009, 4:29:39 PM
+    Author     : Murray
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Form Validator Documentation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--<link rel="stylesheet" type="text/css" href="http://developer.yahoo.com/yui/assets/dpSyntaxHighlighter.css">-->
+        <link rel="stylesheet" type="text/css" href="dpSyntaxHighlighter.css">
+    </head>
+    <body>
+        <p>
+            The form validator is a powerful tool that will allow you to transform
+            regular forms into a powerful interactive form.
+        </p>
+        <p>
+            These are the input fields supported by the form validator.  You can extend the BaseInputField
+            class yourself if you would like to make your own, or make use of the CustomInputField.
+        </p>
+        <ul>
+            <li><a href="#text_input">Text Input</a></li>
+            <li><a href="#integer_input">Integer Input</a></li>
+            <li><a href="#double_input">Double Input</a></li>
+            <li><a href="#selector_input">Selector Input</a></li>
+            <li><a href="#group_input">Group</a></li>
+            <li><a href="#checkbox_input">Checkbox</a></li>
+            <li><a href="#custom_input">Custom Input</a></li>
+            <li><a href="#password_input">Password Input</a></li>
+            <li><a href="#match_input">Match Input</a></li>
+        </ul>
+        <p>
+            The main parts to the form validator are the input fields and the buttons.
+            Input fields are form inputs that have minimum requirements in order to be valid.
+            For example an Integer input field can require that a non negative integer value be entered.
+            If double is entered, it is considered invalid.
+        </p>
+        <p>
+            Buttons are controlled by the form validator as well.  If not in checkOnlyOnSubmit mode, the buttons
+            controlled by the form will be disabled if 1 input is not valid.  These buttons will enable once
+            all inputs are considered valid.
+        </p>
+        <p>
+            Even if the buttons somehow get enabled, the form validator will prevent the form from being submitted until all inputs are valid.
+        </p>
+        <p>
+            To show whether fields are valid or invalid, the form validator uses
+            <b>Indicators</b>.  There are correct and incorrect indicators.  Incorrect
+            indicators show that a field needs to be filled in, an example of this may be a <span style="color:#f00;font-size:13pt;">*</span>
+            or a red coloring of the field.  Correct indicators show that a field has been
+            correctly filled in.  An example of this may be a check mark, or a green coloring of the field.
+        </p>
+        <p>
+            These indicators, correct and incorrect, are completely customizable and can be anything.  They
+            can also be dynamically created by the form validator for you, or can be any existing dom element.
+            In the examples below they will be a red exclamation mark, and a green checkmark.
+        </p>
+        <p>
+            There are two ways to setup for your validator.  You can use json, or it can be done
+            inline in the HTML tags.  Here the JSON way will be shown, and then the inline way.
+
+            With the exception of a couple features, JSON and inline methods offer the same functionality.  However
+            best practice is to use JSON for all standard form validation, while inline is best for dynamic forms
+            where the number of inputs is not certain.
+        </p>
+        <div>
+            <h3>Examples</h3>
+            <p>
+                Examples of how to use the form validator are below.
+                <!--<p style="font-weight:bold;font-size:12pt;">
+                    NOTE: For the external JSON file example, the page must be running on a server in order for the JSON file to be loaded properly.
+                </p>-->
+                <ul>
+                    <li>Basic Example - A very basic example of how to use the form validator. Very simple easy to follow [<a href="examples/json/basicExample.html">json</a>|<a href="examples/inline/basicExample.html">inline</a>]</li>
+                    <li>Dynamic Validators - This is the basic example again, except this time, validators and indicators are created dynamically. [<a href="examples/json/dynamicValidatorsExample.html">json</a>|<a href="examples/inline/dynamicValidatorsExample.html">inline</a>]</li>
+                    <li>Regular Expression - Shows how regular expressions can be put on text fields to restrict input formats. [<a href="examples/json/regexExample.html">json</a>|<a href="examples/inline/regexExample.html">inline</a>]</li>
+                    <li>Correct/Incorrect Css - Shows how css classes can be used to show which fields are correct and incorrect. [<a href="examples/json/correctIncorrectCssExample.html">json</a>|<a href="examples/inline/correctIncorrectCssExample.html">inline</a>]</li>
+                    <li>Check On Submit - This is the basic example again, but this time the form is only checked when Submit is clicked, good for large forms where performance is key. [<a href="examples/json/checkOnSubmitExample.html">Example</a>]</li>
+                    <li>Formatter - See how the formatter feature is used with the phone number text type specification. [<a href="examples/json/formatterExample.html">JSON Only</a>]</li>
+                    <li>Password Example - Example of how to use the validator to enforce password input strength on the front end. [See Group Input example]</li>
+                    <li>Mixing inline and JSON - An example of how you can define inputs with JSON and inline all on the same form. [<a href="examples/json/mixingInlineAndJson.html">Example</a>]</li>
+                    <li>Custom Input - This shows how any javascript object can be used as an input with the Custom Input type [<a href="examples/json/customInputExample.html">json</a>|<a href="examples/inline/customInputExample.html">inline</a>]</li>
+                    <li>Group Input - This shows how you can group 1 or more inputs and require only a few to be filled in. [<a href="examples/json/groupsExample.html">json</a>|<a href="examples/inline/groupsExample.html">inline</a>]</li>
+                    <li>AJAX/Before Submit - An easy example of how the on Submit function and events can be used to use the form as an ajax form. [<a href="examples/json/beforeSubmitExample.html">Example</a>]</li>
+                    <li>Turn input On/Off and Enable/Disable - An example of how you can call the form object to enable/disable/turn on/turn off inputs [<a href="examples/json/onOffDisableEnableExample.html">Example</a>]</li>
+                    <li>Optional Input - Shows you how to specify an input as optional. [<a href="examples/json/optionalExample.html">json</a>|<a href="examples/inline/optionalExample.html">inline</a>]</li>
+                    <li>Form inside a form Example - This will show you how a form can be nested inside another form [<a href="examples/json/formInsideAFormExample.html">json</a>|<a href="examples/inline/formInsideAFormExample.html">inline</a>]</li>
+                    <li>Checkbox - Example of how to use checkboxes on their own [<a href="examples/json/checkboxExample.html">json</a>|<a href="examples/inline/checkboxExample.html">inline</a>]</li>
+                    <li>Checkbox Group - Example of how to use checkboxes inside a group [<a href="examples/json/checkboxGroupExample.html">json</a>|<a href="examples/inline/checkboxGroupExample.html">inline</a>]</li>
+                </ul>
+            </p>
+        </div>
+        <div>
+            <h3>Required files</h3>
+            <p>These are the files required to use all the features of the form validator (note: this can be put into one file if you wish)</p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/Validator.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/BaseInputField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/TextBaseField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/GroupBaseField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/CheckboxField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/SelectField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/DoubleField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/IntegerField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/PasswordField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/MatchField.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../validator/Button.js"&gt;&lt;/script&gt;
+                </textarea>
+            </div>
+        </div>
+        
+        <div>
+            <h3>The Basics</h3>
+            <p>
+                A form validator object instance represents one form.  Below is the javascript required
+                in order for a form to be enhanced by the form validator.  Simply instantiate a Validator
+                object using the form's id or the FORM dom object itself.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    YUI().use(
+                        'Validator.Form',
+                        'Validator.TextBaseField',
+                        'Validator.SelectField',
+                        'Validator.DoubleField',
+                        'Validator.IntegerField',
+                        function(Y){
+                            Y.on("domready", function () {
+                                var form = new Y.Validator(
+                                    {
+                                        form:'idOfForm',
+                                        fieldJSON:[],
+                                        buttonJSON[],
+                                    });
+                            }
+                       });
+                </textarea>
+            </div>
+            <p>
+                This is the minimum required javascript for the form validator to be applied to your form.
+                Json specifying which fields are to be in the form will go in the fieldJSON attribute.
+                This can be left empty if you have specified all your inputs inline.
+                The form validator will automatically add all submit buttons in the form to the validator.
+                The button json will allow other types of buttons to be added to the form validator.
+            </p>
+            <h5>Specifying inputs</h5>
+            <p>
+                As stated above, there are two ways to specify inputs, inline, and JSON.  Below is the general format and common attributes for all inputs
+                for adding any type of input to the form validator.  The JSON you see would be put into the fieldJSON
+                attribute you see above.
+            </p>
+            <h6>JSON</h6>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.TextBaseField, // this is any type, TextBaseField, DoubleField, IntegerField etc.
+                        atts:{ // attributes will contain attributes common to all fields, as well as fields unique to each type of input
+                            inputDOM:'firstName', // (Required) inputDOM is required for all inputs except custom input, and group input
+                            correctIndicator:'firstNameIndicator', // (Optional) id of the dom that will show up when the input is correct.
+                            incorrectIndicator:'firstNameValidator' // (Optional) id of the dom that will show up when the input is incorrect.
+                        }
+                    }
+                </textarea>
+            </div>
+            <h6>Inline</h6>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="firstName" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="TextBaseField"
+                                formvalidator:correctIndicator="firstNameIndicator"
+                                formvalidator:incorrectIndicator="firstNameValidator" /&gt;
+                </textarea>
+            </div>
+            <p>
+                As you can see, inline and JSON use the same attribute names.  For every attributes you see
+                in json, that attribute can also be loaded from inline declarations.  So for example, if the json
+                had the following attribute, attribute1:'myval', then to do the samething inline, attribute1="myval".
+            </p>
+        </div>
+        
+        <div>
+            <h3>Common Attributes</h3>
+            <p>
+                Below is the JSON for an input field.  Listed are the attributes common to all or most input fields.
+                Most of these attributes will be excluded from the specification of each field for clarity.
+            </p>
+            <h5>JSON</h5>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.TextBaseField, // This is the input class.  This class will be used to instantiate the input in the form validator
+                        atts:{ // attributes will contain attributes common to all fields, as well as fields unique to each type of input
+                            inputDOM:'firstName', // (Required) inputDOM is required for all inputs except custom input, and group input
+                            correctIndicator:'firstNameIndicator', // (Optional) id of the dom that will show up when the input is correct.
+                            incorrectIndicator:'firstNameValidator', // (Optional) id of the dom that will show up when the input is incorrect.
+                            correctCss:'cssClass', // (Optional) Css class that will be applied to the input if the input is valid
+                            incorrectCss:'cssClass', // (Optional) Css class that will be applied to the input if the input is invalid
+                            optional:false, // (Optional) false by default, the field is considered valid if not filled in, but must be filled in properly if filled in at all.
+                            isOn:true, // (Optional) On by default, if set to off, it is excluded from all form validator considerations.  If its a group, its child elements are not considered either
+                            disabled:false, // (Optional) false by default, but when true, the input is disabled.
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="firstName" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="TextBaseField"
+                                formvalidator:correctIndicator="firstNameIndicator"
+                                formvalidator:incorrectIndicator="firstNameValidator"
+                                formvalidator:correctCss="cssClass"
+                                formvalidator:incorrectCss="cssClass"
+                                formvalidator:optional="false"
+                                formvalidator:isOn="true"
+                                formvalidator:disabled="false" /&gt;                    
+                </textarea>
+            </p>            
+        </div>
+        <div>
+            <a name="text_input" />
+            <h3>Text Input Field</h3>
+            <p>
+                Below is an outline of the attributes that can be set for a text input field.
+            </p>
+            <h5>JSON</h5>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.TextBaseField, // This is the input class.  This class will be used to instantiate the input in the form validator
+                        atts:{ // attributes will contain attributes common to all fields, as well as fields unique to each type of input
+                            inputDOM:'firstName', // (Required) inputDOM is required for all inputs except custom input, and group input
+                            maxLength:30, // (Optional) Sets the maximum length allowed.  If not set, this will default to 255
+                            formatter:myFormatter, // (Optional) This is the formatter (JSON ONLY), and this is an object or function, see the example for details.
+                            regex:/^$.*/, // (Optional) Regular expression the input must match.
+                            textType:'email', // (Optional) This is the type of field, this will automatically set the regular expression for the type, available types
+                            // are email,phone,creditcard,postalcode or zipcode.
+                        }
+                    }
+                </textarea>
+            </div>
+            
+            <h5>Inline</h5>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="firstName" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="TextBaseField"
+                                formvalidator:maxLength="30"
+                                formvalidator:regex="/^$.*/"
+                                formvalidator:textType="email" /&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="integer_input" />
+            <h3>Integer Input Field</h3>
+            <h5>JSON</h5>
+            <p>
+                Below is an outline of the attributes that can be set for an integer input field.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.IntegerField, // This is the input class.  This class will be used to instantiate the input in the form validator
+                        atts:{ // attributes will contain attributes common to all fields, as well as fields unique to each type of input
+                            inputDOM:'age', // (Required) inputDOM is required for all inputs except custom input, and group input
+                            min:2, // (Optional) Sets the minimum required for the field. If not set, Integer.MinValue will be used
+                            max:20, // (Optional) Sets the maximum value allowed for the field. If not set, Integer.MaxValue will be used
+                            minInclusive:true, // (Optional) True by default, specifies whether the min value is inclusive, so in this case, if a value of 2 is valid
+                            maxInclusive:true, // (Optional) True by default, specifies whether the max value is inclusive, so in this case, if a value of 20 is valid
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="age" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="IntegerField"
+                                formvalidator:min="2"
+                                formvalidator:max="20"
+                                formvalidator:minInclusive="true"
+                                formvalidator:maxInclusive="true" /&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="double_input" />
+            <h3>Double Input Field</h3>
+            <h4>JSON</h4>
+            <p>
+                Below is an outline of the attributes that can be set for a double input field.
+            </p>
+            <h5>JSON</h5>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.DoubleField, // This is the input class.  This class will be used to instantiate the input in the form validator
+                        atts:{ // attributes will contain attributes common to all fields, as well as fields unique to each type of input
+                            inputDOM:'income', // (Required) inputDOM is required for all inputs except custom input, and group input
+                            min:2, // (Optional) Sets the minimum required for the field. If not set, Integer.MinValue will be used
+                            max:20, // (Optional) Sets the maximum value allowed for the field. If not set, Integer.MaxValue will be used
+                            maxDecimalPlaces:2, // (Optional) Sets the maximum number of digits after the decimal that are allowed, if not set, there is no limit.
+                            minInclusive:true, // (Optional) True by default, specifies whether the min value is inclusive, so in this case, if a value of 2 is valid
+                            maxInclusive:true, // (Optional) True by default, specifies whether the max value is inclusive, so in this case, if a value of 20 is valid
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="income" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="IntegerField"
+                                formvalidator:min="2"
+                                formvalidator:max="20"
+                                formvalidator:maxDecimalPlaces="2"
+                                formvalidator:minInclusive="true"
+                                formvalidator:maxInclusive="true" /&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="selector_input" />
+            <h3>Select Input Field</h3>
+            <h4>JSON</h4>
+            <p>
+                Below is an example of the json required for registering a Selector (Drop down) Input field
+                with the form validator.  These are very simple fields, requiring that the non-default
+                value be selected.  This will check and ensure that the value considered to be empty is not
+                selected, by default this value is String.empty.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.SelectField,
+                        atts:{
+                            inputDOM:'vehicle',
+                            emptyValue:'', // (Optional) This is the value considered to be un-selected in the dropdown, by default this is String.Empty
+                        }
+                    }                    
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;select type="text"
+                        formvalidator:FormField="yes"
+                        formvalidator:Type="SelectField"
+                        formvalidator:emptyValue="Empty"&gt;
+                        &lt;!-- Options go here --&gt;
+                    &lt;/select&gt;
+                </textarea>
+            </div>
+        </div>
+        
+        <div>
+            <a name="group_input" />
+            <h3>Group</h3>
+            <h4>JSON</h4>
+            <p>
+                A group is used to group multiple fields together under 1 validation where
+                a specified number of the inputs must be filled in correctly.  An example
+                would be a form where the user must fill in their Date of birth, or their Age.
+            </p>
+            <p>
+                A group will have a validator and indicator (if you want it to) and the group
+                will be valid only when the minimum number of fields have been filled in correctly.
+                However, if one field is filled in with incorrect input, the group will be considered
+                invalid even if there are sufficient number of other input fields filled in already.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.GroupBaseField,
+                        atts:{
+                            id:'somegroup', // (Optional) id assigned to the group, if not set, the id of the groupDOM is used, and if that has no id, then null is used.
+                            groupDOM:'userNameGroup', // (Optional) Dom that contains all of the group inputs.  Only required if mixing inline and JSON
+                            minValid:1, // (Optional) Minimum number of inputs that have to be filled in for the group to be considered valid.  THis is 1 by default
+                            maxValid:1, // (Optional) Maximum number of inputs that CAN be filled in in the group.  If not set, there is no upper limit
+                            membersJSON:[] // (Required) Fields that will be part of the group, same JSON used here as when adding the fields directly to the form.
+                        }
+                     }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                For inline declarations, the inputs belonging to the group must be inside the DOM that has
+                the group's properties as shown below.<br />
+                <b>Note:</b> For a group, we use a different property to get the form validator to recognize it.
+                <br /><br />
+
+                <b>Additional NOTE:</b> Groups will not have indicators created dynamically for it.  They can still be
+                specified specifically using the correct and incorrect indicators.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;div id="userNameGroup"
+                             formvalidator:FormGroup="yes"
+                             formvalidator:minValid="1"
+                             formvalidator:maxValid="1"
+                             class="row"&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="checkbox_input" />
+            <h3>Checkbox</h3>
+            <h4>JSON</h4>
+            <p>
+                A checkbox can be added to the validator as well.  While not incredibly useful on its own,
+                multiple checkboxes could be added to a group.<br /><br />
+
+                <b>NOTE:</b> Checkboxes will not have indicators created dynamically for it.  They can still be
+                specified specifically using the correct and incorrect indicators.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.CheckboxField,
+                        atts:{
+                            inputDOM:'termsOfUseCheckbox', // (Required) The checkbox dom id or dom object.
+                            validWhenChecked:true // (Optional) True by default, specifies that the checkbox is valid when checked
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                Note: Only the first checkbox must have the validator and other common attributes.  After that
+                the other checkboxes must only specify which check box group it belongs to.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input
+                        id="termsOfUseCheckbox"
+                        formvalidator:FormField="yes"
+                        formvalidator:type="CheckboxField"
+                        formvalidator:validWhenChecked="true"
+                        type="checkbox" /&gt;Do you agree?
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="custom_input" />
+            <h3>Custom Input</h3>
+            <h4>JSON</h4>
+            <p>
+                This is the catch all form inputs which require more than the
+                standard set of fields provided by the form validator.  For this
+                type of input, you supply your own javascript object which has a isValid
+                function that returns true or false.  It can also optionally implement
+                an enable, disable, turnOn, turnOff, clear, and isEmpty functions as well.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.CustomField,
+                        atts:{
+                            validatorObject:myObj // (Required) Object or name of reference to object.
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                Inline only supports custom input if your validator object can be referred to from the global scope.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;div id="ColorDiv"
+                        formvalidator:FormField="yes"
+                        formvalidator:type="CustomField"
+                        formvalidator:validatorObject="validatorObject"&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="password_input" />
+            <h3>Password Input</h3>
+            <h4>JSON</h4>
+            <p>
+                This input field will enforce a minimum strenght for password entry.
+                The form validator comes with 3 standard levels of password strength, weak, good and strong.
+                In this input, specifiy the minimum level of strength, min being weak, med being good, and max being strong.
+                You can also specify html elements that will appear for each level of strength.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.PasswordField,
+                        atts:{
+                            inputDOM:'password', // (Required) password field
+                            requiredLevel:'med', // (Optional) Required strength of password, this can be min, med or max, this is med by default
+                            minIndicator:'MinimumValidator', // (Optional) dom object that appears when password meets minimum strength
+                            medIndicator:'MediumValidator', // (Optional) dom object that appears when password meets medimum strength
+                            maxIndicator:'StrongValidator', // (Optional) dom object that appears when password meets maximum strength
+                            min:/regex/, // (Optional) Regular expression for minimum password requirement, by default the regular expression requires minimum 6 characters
+                            med:/regex/, // (Optional) Regular expression for medium password requirement, by default the regular expression requires minimum 6 alpha numeric characters
+                            max:/regex/ // (Optional) Regular expression for maximum password requirement, by default the regular expression requires minimum 6 alpha numeric characters mixed with symbols
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="password" type="password"
+                           formvalidator:FormField="yes"
+                           formvalidator:type="PasswordField"
+                           formvalidator:requiredLevel="med"
+                           formvalidator:min="regex"
+                           formvalidator:med="regex"
+                           formvalidator:max="regex"
+                           formvalidator:minIndicator="MinimumValidator"
+                           formvalidator:medIndicator="MediumValidator"
+                           formvalidator:maxIndicator="StrongValidator"/&gt;
+                </textarea>
+            </div>
+        </div>
+        <div>
+            <a name="match_input" />
+            <h3>Match Input</h3>
+            <h4>JSON</h4>
+            <p>
+                This input usually goes along with the password input.  It requires that
+                it matches another input field on the page.  It could be ANY field, but is
+                most useful with the password field or perhaps and email field.
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="JScript" name="code" cols="60">
+                    {
+                        type:Y.MatchField,
+                        atts:{
+                            inputDOM:'retypePassword',
+                            matchDOM:'password', // (Required) The dom of the input of the input dom must match
+                            caseSensitive:true // (Optional) True by default, if true, matching will be case sensitive.
+                        }
+                    }
+                </textarea>
+            </div>
+            <h5>Inline</h5>
+            <p>
+                
+            </p>
+            <div class="yui-skin-sam">
+                <textarea class="HTML" name="code" cols="60">
+                    &lt;input id="retypePassword" type="password"
+                           formvalidator:FormField="yes"
+                           formvalidator:type="MatchField"
+                           formvalidator:matchDOM="password"
+                           formvalidator:caseSensitive="true"/&gt;
+                </textarea>
+            </div>
+        </div>
+        <!--<script src="http://developer.yahoo.com/yui/assets/dpSyntaxHighlighter.js"></script>-->
+        <script src="dpSyntaxHighlighter.js"></script>
+        <script language="javascript">
+            dp.SyntaxHighlighter.HighlightAll('code'); 
+        </script>
+    </body>
+</html>

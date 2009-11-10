@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../../examples/css/validatorCss.css" type="text/css" />
+        <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"></script>
+        <script type="text/javascript" src="../../jsbuild/gallery-formvalidator-min.js"></script>        
+        <script type="text/javascript">
+            //globalForm = null;
+            YUI().use(
+            'gallery-formvalidator',
+            function(Y){
+                Y.on("domready", function () {
+                    var form = new Y.Validator(
+                        {
+                            form:'basicExample',
+                            fieldJSON:[
+                                {
+                                    type:Y.GroupBaseField,
+                                    atts:{
+                                        groupDOM:'userNameGroup',
+                                        correctIndicator:'groupCorrectIndicator',
+                                        incorrectIndicator:'groupIncorrectIndicator',
+                                        optional:true,
+                                        minValid:1,
+                                        membersJSON:[
+                                            {
+                                                type:Y.TextBaseField,
+                                                atts:{
+                                                    inputDOM:'email',
+                                                    textType:'email',
+                                                    correctIndicator:'emailIndicator',
+                                                    incorrectIndicator:'emailValidator'
+                                                }
+                                            },
+                                            {
+                                                type:Y.TextBaseField,
+                                                atts:{
+                                                    inputDOM:'username',
+                                                    correctIndicator:'userNameIndicator',
+                                                    incorrectIndicator:'userNameValidator'
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    type:Y.PasswordField,
+                                    atts:{
+                                        inputDOM:'password',
+                                        correctIndicator:'passwordIndicator',
+                                        incorrectIndicator:'passwordValidator',
+                                        requiredLevel:'med',
+                                        minIndicator:'MinimumValidator',
+                                        medIndicator:'MediumValidator',
+                                        maxIndicator:'StrongValidator'
+                                    }
+                                },
+                                {
+                                    type:Y.MatchField,
+                                    atts:{
+                                        inputDOM:'retypePassword',
+                                        optional:true,
+                                        correctIndicator:'retypePasswordIndicator',
+                                        incorrectIndicator:'retypePasswordValidator',
+                                        matchDOM:'password',
+                                        caseSensitive:true
+                                    }
+                                }
+                            ]
+                        }
+                    );
+                    //globalForm = form;
+                    Y.Event.attach('click',function(){form.clear();},'#clearButton');
+                });
+            });
+        </script>
+  </head>
+  <body>
+     <div class="mainContainer">
+            <form id="basicExample" action="formPost.html">
+                <div class="formBody">
+                    <h2>Optional Example</h2>
+                    <div class="info">
+                        <p>
+                            This will show you how to set fields as optional.  These
+                            are fields that do not need to be filled in, but if they
+                            are filled in, they must be filled in correctly.
+
+                            In this example, the group (email or username) is optional, and the Re-type password
+                            is optional.
+                        </p>
+                    </div>
+                    <div>
+                        <div id="groupIncorrectIndicator" style="color:#f00;" class="row">
+                            Fill in either a user name or email to use to login.
+                        </div>
+                        <div id="groupCorrectIndicator" class="row">
+                            User name or email correctly filled in.
+                        </div>
+                        <div id="userNameGroup" class="row">
+                            <div class="column1Backing"></div>
+                            <div class="column2Backing"></div>
+                            <div class="label">Email:</div>
+                            <div class="value">
+                                <div id="emailValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="emailIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="email" type="text" />
+                                </div>
+                            </div>
+                            <div class="label">Username:</div>
+                            <div class="value">
+                                <div id="userNameValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="userNameIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="username" type="text" />
+                                </div>
+                            </div>
+                            <div class="clearDiv"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column1Backing"></div>
+                        <div class="column2Backing"></div>
+                        <div class="label">Password:</div>
+                        <div class="value">
+                            <div id="passwordValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="passwordIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <div class="innerValue">
+                                <input id="password" type="password" />
+                                <span id="StrongValidator">Strong</span>
+                                <span id="MediumValidator">Good</span>
+                                <span id="MinimumValidator">Weak</span>
+                            </div>
+                        </div>
+                        <div class="label">Re-type Password:</div>
+                        <div class="value">
+                            <div id="retypePasswordValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="retypePasswordIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <input id="retypePassword" type="password" />
+                        </div>
+                        <div class="clearDiv"></div>
+                    </div>
+
+                    <div class="buttonRow">
+                        <input type="submit" class="button" value="Save" />
+                        <input type="button" id="clearButton" class="button" value="Clear" />
+                        <input type="reset" class="button" value="Reset" />
+                        <input type="button" class="button" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

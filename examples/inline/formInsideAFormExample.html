@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="../../examples/css/validatorCss.css" type="text/css" />
+        <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"></script>
+        <script type="text/javascript" src="../../jsbuild/gallery-formvalidator-min.js"></script>        
+
+        <script type="text/javascript">
+            YUI().use(
+            'gallery-formvalidator',
+            function(Y){
+                Y.on("domready", function () {
+                    var outterForm = new Y.Validator(
+                        {
+                            form:'basicExample',
+                            fieldJSON:[]
+                        }
+                    );
+                    
+                    var innerForm = new Y.Validator(
+                        {
+                            form:'innerForm',
+                            buttonJSON:[{buttonEl:'submitCredentials'}],
+                            fieldJSON:[]
+                        }
+                    );
+                    Y.Event.attach('click',function(){innerForm.clear();},'#innerClearButton');
+                    Y.Event.attach('click',function(){outterForm.clear();},'#clearButton');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="mainContainer">
+            <form id="basicExample" action="formPost.html">
+                <div class="formBody">
+                    <h2>Form inside a form</h2>
+                    <div class="info">
+                        <p>
+                            Your form doesn't need to be a form to be used with the validator.  Nor does it have to be
+                            outside another form.  As long as it does not have a submit type button in it, it will work
+                            fine.  Below the first name, last name, age and income are in the main form.  The password
+                            and password confirm are in the inner form.
+                        </p>
+                        <p>
+                            For the below example, your better off putting these inputs in the same form.  In this case
+                            it has been kept simple with familiar inputs.  This would be useful, for example, if you have a data table
+                            and want an inline form for adding items to it.  And that datatable is a part of an overall form.
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="column1Backing"></div>
+                        <div class="column2Backing"></div>
+                        <div class="label">First Name:</div>
+                        <div class="value">
+                            <div id="firstNameValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="firstNameIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <input id="firstName" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="TextBaseField"
+                                formvalidator:correctIndicator="firstNameIndicator"
+                                formvalidator:incorrectIndicator="firstNameValidator" />
+                        </div>
+                        <div class="label">Last Name:</div>
+                        <div class="value">
+                            <div id="lastNameValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="lastNameIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <input id="lastName" type="text"
+                                formvalidator:FormField="yes"
+                                formvalidator:Type="TextBaseField"
+                                formvalidator:correctIndicator="lastNameIndicator"
+                                formvalidator:incorrectIndicator="lastNameValidator" />
+                        </div>
+                        <div class="clearDiv"></div>
+                    </div>
+                    <fieldset formvalidator:Form="true" id="innerForm">
+                        <legend>Login Credentials</legend>
+                        <div class="row">
+                            <div class="column1Backing"></div>
+                            <div class="column2Backing"></div>
+                            <div class="label">Password:</div>
+                            <div class="value">
+                                <div id="passwordValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="passwordIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="password" type="password"
+                                       formvalidator:FormField="yes"
+                                       formvalidator:type="PasswordField"
+                                       formvalidator:correctIndicator="passwordIndicator"
+                                       formvalidator:incorrectIndicator="passwordValidator"
+                                       formvalidator:requiredLevel="med"
+                                       formvalidator:minIndicator="MinimumValidator"
+                                       formvalidator:medIndicator="MediumValidator"
+                                       formvalidator:maxIndicator="StrongValidator"/>
+                                    <span id="StrongValidator">Strong</span>
+                                    <span id="MediumValidator">Good</span>
+                                    <span id="MinimumValidator">Weak</span>
+                                </div>
+                            </div>
+                            <div class="label">Re-type Password:</div>
+                            <div class="value">
+                                <div id="retypePasswordValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="retypePasswordIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <input id="retypePassword" type="password"
+                                   formvalidator:FormField="yes"
+                                   formvalidator:type="MatchField"
+                                   formvalidator:correctIndicator="retypePasswordIndicator"
+                                   formvalidator:incorrectIndicator="retypePasswordValidator"
+                                   formvalidator:matchDOM="password"
+                                   formvalidator:caseSensitive="true" />
+                            </div>
+                            <div class="clearDiv"></div>
+                        </div>
+                        <div id="userNameGroup"
+                             formvalidator:FormGroup="yes"
+                             formvalidator:minValid="1"
+                             class="row">
+                            <div class="column1Backing"></div>
+                            <div class="column2Backing"></div>
+                            <div class="label">Email:</div>
+                            <div class="value">
+                                <div id="emailValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="emailIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="email" type="text"
+                                           formvalidator:FormField="yes"
+                                           formvalidator:type="TextBaseField"
+                                           formvalidator:textType="email"
+                                           formvalidator:correctIndicator="emailIndicator"
+                                           formvalidator:incorrectIndicator="emailValidator"/>
+                                </div>
+                            </div>
+                            <div class="label">Username:</div>
+                            <div class="value">
+                                <div id="userNameValidator" class="validator">
+                                    <span class="validator">&nbsp;</span>
+                                </div>
+                                <div id="userNameIndicator" class="indicator" style="display:none;">
+                                    <span class="indicator">&nbsp;</span>
+                                </div>
+                                <div class="innerValue">
+                                    <input id="username" type="text"
+                                           formvalidator:FormField="yes"
+                                           formvalidator:type="TextBaseField"
+                                           formvalidator:correctIndicator="userNameIndicator"
+                                           formvalidator:incorrectIndicator="userNameValidator" />
+                                </div>
+                            </div>
+                            <div class="clearDiv"></div>
+                        </div>
+                        <div class="buttonRow">
+                            <input type="button" id="submitCredentials" class="button" value="Submit Credentials" />
+                            <input type="button" id="innerClearButton" class="button" value="Clear" />
+                        </div>
+                    </fieldset>
+                    <div class="row">
+                        <div class="column1Backing"></div>
+                        <div class="column2Backing"></div>
+                        <div class="label">Age:</div>
+                        <div class="value">
+                            <div id="ageValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="ageIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <div class="innerValue">
+                                <input id="age" type="text"
+                                    formvalidator:FormField="yes"
+                                    formvalidator:type="IntegerField"
+                                    formvalidator:correctIndicator="ageIndicator"
+                                    formvalidator:max="100"
+                                    formvalidator:min="3"
+                                    formvalidator:incorrectIndicator="ageValidator" />
+                            </div>
+                        </div>
+                        <div class="label">Income ($):</div>
+                        <div class="value">
+                            <div id="incomeValidator" class="validator">
+                                <span class="validator">&nbsp;</span>
+                            </div>
+                            <div id="incomeIndicator" class="indicator" style="display:none;">
+                                <span class="indicator">&nbsp;</span>
+                            </div>
+                            <div class="innerValue">
+                                <input id="income" type="text"
+                                    formvalidator:FormField="yes"
+                                    formvalidator:type="DoubleField"
+                                    formvalidator:maxDecimalPlaces="2"
+                                    formvalidator:max="40000"
+                                    formvalidator:maxInclusive="true"
+                                    formvalidator:correctIndicator="incomeIndicator"
+                                    formvalidator:incorrectIndicator="incomeValidator" />
+                            </div>
+                        </div>
+                        <div class="clearDiv"></div>
+                    </div>
+                    <div class="buttonRow">
+                        <input type="submit" class="button" value="Save" />
+                        <input type="button" id="clearButton" class="button" value="Clear" />
+                        <input type="button" class="button" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

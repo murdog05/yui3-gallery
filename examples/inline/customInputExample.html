@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="../../examples/css/validatorCss.css" type="text/css" />
+        <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"></script>
+        <script type="text/javascript" src="../../jsbuild/gallery-formvalidator-min.js"></script>        
+        <script type="text/javascript">
+            // less desirable given the global objects.
+            var validatorGlobal = {
+                validatorObject:{
+                    theDiv:null,
+                    isValid:function(){
+                        return this.theDiv.getAttribute('curcolor') == 'green';
+                    },
+                    clear:function(){
+                        this.theDiv.setAttribute('curcolor','red');
+                        this.theDiv.style.backgroundColor = 'red';
+                    },
+                    toggleColor:function(e){
+                        var theDiv = this.theDiv;
+                        var curColor = theDiv.getAttribute('curcolor');
+                        if (curColor == 'blue'){
+                            theDiv.style.backgroundColor = 'green';
+                            theDiv.setAttribute('curcolor','green');
+                        }
+                        else if (curColor == 'green'){
+                            theDiv.style.backgroundColor = 'red';
+                            theDiv.setAttribute('curcolor','red');
+                        }
+                        else{
+                            theDiv.style.backgroundColor = 'blue';
+                            theDiv.setAttribute('curcolor','blue');
+                        }
+                        this.form.checkFormValues();
+                    }
+                }
+            };
+            YUI().use(
+            'gallery-formvalidator',
+            function(Y){
+                Y.on("domready", function () {
+                    validatorGlobal.validatorObject.theDiv = document.getElementById('ColorDiv');
+                    var form = new Y.Validator(
+                        {
+                            form:'basicExample'
+                        }
+                    );
+                    validatorGlobal.validatorObject.form = form;
+                    Y.on('click',validatorGlobal.validatorObject.toggleColor,'#ColorDiv',validatorGlobal.validatorObject,true);
+                    Y.Event.attach('click',function(){form.clear();},'#clearButton');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="mainContainer">
+            <form id="basicExample" action="formPost.html">
+                <div class="formBody">
+                    <h2>Custom Input Example</h2>
+                    <div class="info">
+                        This will demonstrate how to go about making your own custom input for the form validator.
+                        The div below will only be considered valid if green.
+                    </div>
+
+                    <div id="ColorDiv"
+                         formvalidator:FormField="yes"
+                         formvalidator:type="CustomField"
+                         formvalidator:correctIndicator="customIndicator"
+                         formvalidator:incorrectIndicator="customValidator"
+                         formvalidator:validatorObject="validatorObject"
+                         curcolor="red" style="padding:4px;width:100px;height:100px;background-color:red;color:white;cursor:pointer;">
+                        I am only valid when green, click me to change my color.
+                    </div>
+
+                    <div id="customValidator" style="color:#ff0000;">NOT VALID</div>
+                    <div id="customIndicator" style="color:#00ff00;">VALID!!!!</div>
+
+                    <div class="buttonRow">
+                        <input type="submit" class="button" value="Save" />
+                        <input type="button" id="clearButton" class="button" value="Clear" />
+                        <input type="reset" class="button" value="Reset" />
+                        <input type="button" class="button" value="Cancel" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
