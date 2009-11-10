@@ -98,17 +98,7 @@
             <div class="yui-skin-sam">
                 <textarea class="HTML" name="code" cols="60">
                     &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/Validator.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/BaseInputField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/TextBaseField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/GroupBaseField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/CheckboxField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/SelectField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/DoubleField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/IntegerField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/PasswordField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/MatchField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/Button.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="build/gallery-formvalidator-min.js"&gt;&lt;/script&gt;
                 </textarea>
             </div>
         </div>
@@ -123,11 +113,7 @@
             <div class="yui-skin-sam">
                 <textarea class="JScript" name="code" cols="60">
                     YUI().use(
-                        'Validator.Form',
-                        'Validator.TextBaseField',
-                        'Validator.SelectField',
-                        'Validator.DoubleField',
-                        'Validator.IntegerField',
+                        'gallery-formvalidator',
                         function(Y){
                             Y.on("domready", function () {
                                 var form = new Y.Validator(
