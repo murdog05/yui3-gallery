@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="dpSyntaxHighlighter.css">
     </head>
     <body>
+        <h2>Form Validator</h2>
         <p>
             The form validator is a powerful tool that will allow you to transform
             regular forms into a powerful interactive form.
@@ -98,17 +99,7 @@
             <div class="yui-skin-sam">
                 <textarea class="HTML" name="code" cols="60">
                     &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.0.0b1/build/yui/yui-min.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/Validator.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/BaseInputField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/TextBaseField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/GroupBaseField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/CheckboxField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/SelectField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/DoubleField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/IntegerField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/PasswordField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/MatchField.js"&gt;&lt;/script&gt;
-                    &lt;script type="text/javascript" src="../../validator/Button.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="../../build/gallery-formvalidator-min.js"&gt;&lt;/script&gt;
                 </textarea>
             </div>
         </div>
@@ -123,11 +114,7 @@
             <div class="yui-skin-sam">
                 <textarea class="JScript" name="code" cols="60">
                     YUI().use(
-                        'Validator.Form',
-                        'Validator.TextBaseField',
-                        'Validator.SelectField',
-                        'Validator.DoubleField',
-                        'Validator.IntegerField',
+                        'gallery-formvalidator',
                         function(Y){
                             Y.on("domready", function () {
                                 var form = new Y.Validator(
@@ -473,7 +460,9 @@
             </div>
             <h5>Inline</h5>
             <p>
-                Inline only supports custom input if your validator object can be referred to from the global scope.
+                Inline only supports custom input if your validator object can be referred to from an object called validatorGlobal
+                in the global scope.  So for the example below to work, somewhere before the form validator is instantiated, you would
+                need to do the following assignment <span style="font-weight:bold;">validatorGlobal.validatorObject = validatorObject</span>
             </p>
             <div class="yui-skin-sam">
                 <textarea class="HTML" name="code" cols="60">
