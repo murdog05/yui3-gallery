@@ -1,4 +1,4 @@
-YAHOO.env.classMap = {"Validator.DoubleField": "Validator", "Validator.CustomField": "Validator", "Validator.PasswordField": "Validator", "Validator.IntegerField": "Validator", "Validator.Form": "Validator", "Validator.TextBaseField": "Validator", "Validator.CheckboxField": "Validator", "Validator.BaseInputField": "Validator", "Validator.GroupBaseField": "Validator", "Validator.SelectField": "Validator", "Validator.MatchField": "Validator", "Validator.Button": "Validator", "Validator.GLOBAL": "Validator"};
+YAHOO.env.classMap = {"validator.DoubleField": "validator", "validator.CustomField": "validator", "validator.PasswordField": "validator", "validator.IntegerField": "validator", "validator.Form": "validator", "validator.TextBaseField": "validator", "validator.CheckboxField": "validator", "validator.BaseInputField": "validator", "validator.MatchField": "validator", "validator.GroupBaseField": "validator", "validator.SelectField": "validator", "validator.Button": "validator", "validator.GLOBAL": "validator"};
 
 YAHOO.env.resolveClass = function(className) {
     var a=className.split('.'), ns=YAHOO.env.classMap;
