@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: Validator  Validator.TextBaseField   (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258223720.61" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258223720.61" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1258223720.61"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1258223720.61"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>Validator&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_validator.html" title="Validator">Validator</a>
+                 &gt; Validator.TextBaseField 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        
+
+                        
+                        
+                            Class <b property="yui:name">Validator.TextBaseField</b>
+                        <span class="extends">
+                           - extends <a href="Validator.BaseInputField.html" title="Validator.BaseInputField">Validator.BaseInputField</a>
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+                    
+                        <dl class="subclasses" rel="yui:subclasses">
+                            <dt>Known Subclasses:</dt>
+                            <dd>
+                                    <span rel="yui:subclass" resource="Validator.DoubleField.html">
+                                    <a href="Validator.DoubleField.html" property="yui:name" title="Validator.DoubleField">Validator.DoubleField</a>
+                                    </span>
+                                    <span rel="yui:subclass" resource="Validator.PasswordField.html">
+                                    <a href="Validator.PasswordField.html" property="yui:name" title="Validator.PasswordField">Validator.PasswordField</a>
+                                    </span>
+                                    <span rel="yui:subclass" resource="Validator.SelectField.html">
+                                    <a href="Validator.SelectField.html" property="yui:name" title="Validator.SelectField">Validator.SelectField</a>
+                                    </span>
+                                    <span rel="yui:subclass" resource="Validator.MatchField.html">
+                                    <a href="Validator.MatchField.html" property="yui:name" title="Validator.MatchField">Validator.MatchField</a>
+                                    </span>
+                            </dd>
+                       </dl>
+                
+  
+
+                    <div class="summary description" property="yui:description">
+                        This class is the text base input field and will be extended by all
+Inputs who's values will be text based in anyway.  Examples include a number input,
+select box or a text input.
+                    </div>
+
+                        <div class="section constructor details" rel="yui:constructor" resource="#constructor">
+                        <h3 id="constructor">Constructor</h3>
+                        <div class="content">
+                            <div class="detail">
+                                <strong property="yui:name">Validator.TextBaseField</strong>
+                                <code>
+                                    (
+  
+                                        
+                                                
+                                                config
+
+                                                , 
+                                                initialize
+                                    )
+                                </code>
+                                <div class="description">
+                                        <dl rel="yui:parameters">
+                                            <dt>Parameters:</dt>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">config</span>
+                                                    &lt;<span property="yui:type">Object</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description"> Configuratino settings for the input.</span>
+                                                </dd>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">initialize</span>
+                                                    &lt;<span property="yui:type">boolean</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description"> Flag that says whether or not to call the initialize input function</span>
+                                                </dd>
+                                        </dl>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div rel="yui:properties" resource="#properties">
+
+                        <div rel="yui:inheritance">
+                        <div class="section field inheritance" rel="yui:superclass"  resource="Validator.BaseInputField.html">
+                            <h4>Properties inherited from <a href="Validator.BaseInputField.html" property="yui:name" title="Validator.BaseInputField">Validator.BaseInputField</a>:</h4>
+                            <div class="content" rel="yui:properties">
+                                <code>
+                                    
+                                </code>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:method" resource="#method_checkFormat">
+                                    <h4>
+                                        <a name="method_checkFormat">checkFormat</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">checkFormat</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will ensure the input is formatted as desired using the formatter, but only
+if the input is valid.  If it does not match the regular expression, this will not call
+the format method/object's format method.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_checkIndicators">
+                                    <h4>
+                                        <a name="method_checkIndicators">checkIndicators</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        boolean
+                                            <strong property="yui:name">checkIndicators</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will ensure the proper css and/or dom is showing to indicate
+that the input is valid or invalid.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        boolean
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">True if input is valid</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_clear">
+                                    <h4>
+                                        <a name="method_clear">clear</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">clear</strong>
+                                           (
+                                                
+                                                        
+                                                         silent
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will reset the text field to ''
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">silent</span>
+                                                        &lt;<span property="yui:type">boolean</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> Set to true if you do not want the clear to invoke a form validator change event.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_disable">
+                                    <h4>
+                                        <a name="method_disable">disable</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">disable</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will disable the input.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_enable">
+                                    <h4>
+                                        <a name="method_enable">enable</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">enable</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will enable the input.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_getId">
+                                    <h4>
+                                        <a name="method_getId">getId</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        string
+                                            <strong property="yui:name">getId</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Returns the id of the input dom
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        string
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">id of the input dom.</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_getInputDOM">
+                                    <h4>
+                                        <a name="method_getInputDOM">getInputDOM</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        HTMLElement
+                                            <strong property="yui:name">getInputDOM</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will return the dom that represents the input.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        HTMLElement
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">input dom for this field.</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_initializeEvents">
+                                    <h4>
+                                        <a name="method_initializeEvents">initializeEvents</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">initializeEvents</strong>
+                                           (
+                                                
+                                                        
+                                                         target
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will attach the keyup event to the input dom.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">target</span>
+                                                        &lt;<span property="yui:type">HTMLElement</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> The Object that will be listening to the key up and blur events of the input DOM.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_initializeInput">
+                                    <h4>
+                                        <a name="method_initializeInput">initializeInput</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">initializeInput</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will setup the indicators for the input
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_insertBeside">
+                                    <h4>
+                                        <a name="method_insertBeside">insertBeside</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">insertBeside</strong>
+                                           (
+                                                
+                                                        
+                                                         el
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This function will insert the given el beside the inputDOM.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">el</span>
+                                                        &lt;<span property="yui:type">HTMLElement</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> DOM object to be insert beside the main input.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_isEmpty">
+                                    <h4>
+                                        <a name="method_isEmpty">isEmpty</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        boolean
+                                            <strong property="yui:name">isEmpty</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Returns true if the input dom has an empty string value.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        boolean
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">true if the input is not ''</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_isValid">
+                                    <h4>
+                                        <a name="method_isValid">isValid</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        boolean
+                                            <strong property="yui:name">isValid</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Returns true only if the input is not empty, and it is not longer than the maximum length setting
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        boolean
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">true if the input is not empty, and it is not longer than the maximum length setting</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_showCorrectIndicator">
+                                    <h4>
+                                        <a name="method_showCorrectIndicator">showCorrectIndicator</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">showCorrectIndicator</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will ensure that the incorrect indicator is hidden and the incorrect css is not used, and will
+ensure that the correct indicator is showing, and the correct css is applied.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_showIncorrectIndicator">
+                                    <h4>
+                                        <a name="method_showIncorrectIndicator">showIncorrectIndicator</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">showIncorrectIndicator</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will ensure that the correct indicator is hidden and the correct css is not used, and will
+ensure that the incorrect indicator is showing, and the correct css is applied.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_showNoIndicators">
+                                    <h4>
+                                        <a name="method_showNoIndicators">showNoIndicators</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">showNoIndicators</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            This will ensure NO indicators are showing.
+method @showNoIndicators
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div rel="yui:inheritance">                    
+                            <div class="section field inheritance" rel="yui:superclass"  resource="Validator.BaseInputField.html">
+                                <h4>Methods inherited from <a href="Validator.BaseInputField.html" property="yui:name" title="Validator.BaseInputField">Validator.BaseInputField</a>:</h4>
+                                <div class="content" rel="yui:methods">
+                                    <code>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method__evtOnChange">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method__evtOnChange" property="yui:name" title="_evtOnChange">_evtOnChange</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_checkIndicators">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_checkIndicators" property="yui:name" title="checkIndicators">checkIndicators</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_clear">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_clear" property="yui:name" title="clear">clear</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_destructor">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_destructor" property="yui:name" title="destructor">destructor</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_disable">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_disable" property="yui:name" title="disable">disable</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_enable">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_enable" property="yui:name" title="enable">enable</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_getId">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_getId" property="yui:name" title="getId">getId</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_getInputDOM">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_getInputDOM" property="yui:name" title="getInputDOM">getInputDOM</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_initializeEvents">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_initializeEvents" property="yui:name" title="initializeEvents">initializeEvents</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_initializeInput">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_initializeInput" property="yui:name" title="initializeInput">initializeInput</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_initializer">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_initializer" property="yui:name" title="initializer">initializer</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_inputIsOn">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_inputIsOn" property="yui:name" title="inputIsOn">inputIsOn</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_insertBeside">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_insertBeside" property="yui:name" title="insertBeside">insertBeside</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_isEmpty">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_isEmpty" property="yui:name" title="isEmpty">isEmpty</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_isValid">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_isValid" property="yui:name" title="isValid">isValid</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_setupDomItem.">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_setupDomItem." property="yui:name" title="setupDomItem.">setupDomItem.</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_setupIndicators">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_setupIndicators" property="yui:name" title="setupIndicators">setupIndicators</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_showCorrectIndicator">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_showCorrectIndicator" property="yui:name" title="showCorrectIndicator">showCorrectIndicator</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_showIncorrectIndicator">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_showIncorrectIndicator" property="yui:name" title="showIncorrectIndicator">showIncorrectIndicator</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_showNoIndicators">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_showNoIndicators" property="yui:name" title="showNoIndicators">showNoIndicators</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_synchronize">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_synchronize" property="yui:name" title="synchronize">synchronize</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_turnOff">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_turnOff" property="yui:name" title="turnOff">turnOff</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Validator.BaseInputField.html#method_turnOn">                                        
+                                            <a class="" href="Validator.BaseInputField.html#method_turnOn" property="yui:name" title="turnOn">turnOn</a>
+                                            </span>
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+
+
+                        <div rel="yui:inheritance">                    
+                        <div class="section field inheritance" rel="yui:superclass"  resource="Validator.BaseInputField.html">
+                            <h4>Events inherited from <a href="Validator.BaseInputField.html" property="yui:name" title="Validator.BaseInputField">Validator.BaseInputField</a>:</h4>
+                            <div class="content" rel="yui:events">
+                                <code>
+                                        <span rel="yui:event" resource="Validator.BaseInputField.html#event_onchange">
+                                        <a class="" href="Validator.BaseInputField.html#event_onchange" property="yui:name" title="onchange">onchange</a><span class="">,</span>
+                                        </span>
+                                    
+                                </code>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+                        <div class="section field details">
+                            <h3 id="configattributes">Configuration Attributes</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:attribute" resource="#config_formatter">
+                                    <h4><a name="config_formatter">formatter</a>
+                                        <code>- <span property="yui:type">Function|Object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Formatter used for formatting the result typed into the text field.
+This can be a function that takes the input text and returns it in a
+desired format, or it could be an object that has a format function.
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_inputDOM">
+                                    <h4><a name="config_inputDOM">inputDOM</a>
+                                        <code>- <span property="yui:type">HTMLElement|string</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            This is the main input DOM that the validator will check input on.  This can be set as the id of the
+object, or as the dom object itself.
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_maxLength">
+                                    <h4><a name="config_maxLength">maxLength</a>
+                                        <code>- <span property="yui:type">Number</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            This will state the maximum length of the string in the input.  This
+value is 255 by default.
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_regex">
+                                    <h4><a name="config_regex">regex</a>
+                                        <code>- <span property="yui:type">regex</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Regular expression the input must match in order for the input to be correct.
+If set to null, this is ignored in the isValid function.
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_textType">
+                                    <h4><a name="config_textType">textType</a>
+                                        <code>- <span property="yui:type">string</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            This property is optional for those who wish to use the pre-canned regular expressions.
+This can be set to any of the following types <br/>
+<ul>
+<li>Email</li>
+<li>Phone</li>
+<li>CreditCard</li>
+<li>Zipcode</li>
+<li>Postalcode</li>
+</ul>
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+
+                            </div>
+                        </div>
+
+                        <div rel="yui:inheritance">                    
+                        <div class="section field inheritance" rel="yui:superclass"  resource="Validator.BaseInputField.html">
+                            <h4>Configuration attributes inherited from <a href="Validator.BaseInputField.html" property="yui:name" title="Validator.BaseInputField">Validator.BaseInputField</a>:</h4>
+                            <div class="content" rel="yui:attributes">
+                                <code>
+                                        <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_correctCss">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_correctCss" property="yui:name" title="correctCss">correctCss</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_correctIndicator">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_correctIndicator" property="yui:name" title="correctIndicator">correctIndicator</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_correctIndicatorCss">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_correctIndicatorCss" property="yui:name" title="correctIndicatorCss">correctIndicatorCss</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_correctIndicatorText">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_correctIndicatorText" property="yui:name" title="correctIndicatorText">correctIndicatorText</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_createCorrectIndicator">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_createCorrectIndicator" property="yui:name" title="createCorrectIndicator">createCorrectIndicator</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_createIncorrectIndicator">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_createIncorrectIndicator" property="yui:name" title="createIncorrectIndicator">createIncorrectIndicator</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_disabled">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_disabled" property="yui:name" title="disabled">disabled</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_incorrectCss">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_incorrectCss" property="yui:name" title="incorrectCss">incorrectCss</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_incorrectIndicator">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_incorrectIndicator" property="yui:name" title="incorrectIndicator">incorrectIndicator</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_incorrectIndicatorCss">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_incorrectIndicatorCss" property="yui:name" title="incorrectIndicatorCss">incorrectIndicatorCss</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_incorrectIndicatorText">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_incorrectIndicatorText" property="yui:name" title="incorrectIndicatorText">incorrectIndicatorText</a><span class="">,</span>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_indicatorType">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_indicatorType" property="yui:name" title="indicatorType">indicatorType</a>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_isOn">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_isOn" property="yui:name" title="isOn">isOn</a>
+                                        </span>
+                                                                                <span rel="yui:attribute" resource="Validator.BaseInputField.html#config_optional">                                        
+                                        <a class="" href="Validator.BaseInputField.html#config_optional" property="yui:name" title="optional">optional</a>
+                                        </span>
+                                        
+                                </code>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_Validator.html" title="Validator">Validator</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Validator.BaseInputField.html" title="Validator.BaseInputField">Validator.BaseInputField</a></li>
+                                <li class=""><a href="Validator.Button.html" title="Validator.Button">Validator.Button</a></li>
+                                <li class=""><a href="Validator.CheckboxField.html" title="Validator.CheckboxField">Validator.CheckboxField</a></li>
+                                <li class=""><a href="Validator.CustomField.html" title="Validator.CustomField">Validator.CustomField</a></li>
+                                <li class=""><a href="Validator.DoubleField.html" title="Validator.DoubleField">Validator.DoubleField</a></li>
+                                <li class=""><a href="Validator.Form.html" title="Validator.Form">Validator.Form</a></li>
+                                <li class=""><a href="Validator.GLOBAL.html" title="Validator.GLOBAL">Validator.GLOBAL</a></li>
+                                <li class=""><a href="Validator.GroupBaseField.html" title="Validator.GroupBaseField">Validator.GroupBaseField</a></li>
+                                <li class=""><a href="Validator.IntegerField.html" title="Validator.IntegerField">Validator.IntegerField</a></li>
+                                <li class=""><a href="Validator.MatchField.html" title="Validator.MatchField">Validator.MatchField</a></li>
+                                <li class=""><a href="Validator.PasswordField.html" title="Validator.PasswordField">Validator.PasswordField</a></li>
+                                <li class=""><a href="Validator.SelectField.html" title="Validator.SelectField">Validator.SelectField</a></li>
+                                <li class="selected"><a href="Validator.TextBaseField.html" title="Validator.TextBaseField">Validator.TextBaseField</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="BaseInputField.js.html" title="BaseInputField.js">BaseInputField.js</a></li>
+                                <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
+                                <li class=""><a href="CheckboxField.js.html" title="CheckboxField.js">CheckboxField.js</a></li>
+                                <li class=""><a href="CustomField.js.html" title="CustomField.js">CustomField.js</a></li>
+                                <li class=""><a href="DoubleField.js.html" title="DoubleField.js">DoubleField.js</a></li>
+                                <li class=""><a href="GroupBaseField.js.html" title="GroupBaseField.js">GroupBaseField.js</a></li>
+                                <li class=""><a href="IntegerField.js.html" title="IntegerField.js">IntegerField.js</a></li>
+                                <li class=""><a href="MatchField.js.html" title="MatchField.js">MatchField.js</a></li>
+                                <li class=""><a href="PasswordField.js.html" title="PasswordField.js">PasswordField.js</a></li>
+                                <li class=""><a href="SelectField.js.html" title="SelectField.js">SelectField.js</a></li>
+                                <li class=""><a href="TextBaseField.js.html" title="TextBaseField.js">TextBaseField.js</a></li>
+                                <li class=""><a href="Validator.js.html" title="Validator.js">Validator.js</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#method_checkFormat" title="checkFormat">checkFormat</a></li>
+                                <li class=""><a href="#method_checkIndicators" title="checkIndicators">checkIndicators</a></li>
+                                <li class=""><a href="#method_clear" title="clear">clear</a></li>
+                                <li class=""><a href="#method_disable" title="disable">disable</a></li>
+                                <li class=""><a href="#method_enable" title="enable">enable</a></li>
+                                <li class=""><a href="#method_getId" title="getId">getId</a></li>
+                                <li class=""><a href="#method_getInputDOM" title="getInputDOM">getInputDOM</a></li>
+                                <li class=""><a href="#method_initializeEvents" title="initializeEvents">initializeEvents</a></li>
+                                <li class=""><a href="#method_initializeInput" title="initializeInput">initializeInput</a></li>
+                                <li class=""><a href="#method_insertBeside" title="insertBeside">insertBeside</a></li>
+                                <li class=""><a href="#method_isEmpty" title="isEmpty">isEmpty</a></li>
+                                <li class=""><a href="#method_isValid" title="isValid">isValid</a></li>
+                                <li class=""><a href="#method_showCorrectIndicator" title="showCorrectIndicator">showCorrectIndicator</a></li>
+                                <li class=""><a href="#method_showIncorrectIndicator" title="showIncorrectIndicator">showIncorrectIndicator</a></li>
+                                <li class=""><a href="#method_showNoIndicators" title="showNoIndicators">showNoIndicators</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="configList" class="module">
+                        <h4>Configuration Attributes</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#config_formatter" title="formatter">formatter</a></li>
+                                <li class=""><a href="#config_inputDOM" title="inputDOM">inputDOM</a></li>
+                                <li class=""><a href="#config_maxLength" title="maxLength">maxLength</a></li>
+                                <li class=""><a href="#config_regex" title="regex">regex</a></li>
+                                <li class=""><a href="#config_textType" title="textType">textType</a></li>
+                        </ul>
+                    </div>
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Validator.GroupBaseField.html#method_addInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "addInput"}, {"url": "Validator.BaseInputField.html#method_BOOLEANSETTER", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "BOOLEANSETTER"}, {"url": "Validator.Button.html#config_buttonEl", "access": "", "host": "Validator.Button", "type": "config", "name": "buttonEl"}, {"url": "Validator.MatchField.html#config_caseSensitive", "access": "", "host": "Validator.MatchField", "type": "config", "name": "caseSensitive"}, {"url": "Validator.TextBaseField.html#method_checkFormat", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkFormat"}, {"url": "Validator.BaseInputField.html#method_checkIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CheckboxField.html#method_checkIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CustomField.html#method_checkIndicators", "access": "", "host": "Validator.CustomField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.GroupBaseField.html#method_checkIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.PasswordField.html#method_checkIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.TextBaseField.html#method_checkIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.BaseInputField.html#method_clear", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "clear"}, {"url": "Validator.CheckboxField.html#method_clear", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "clear"}, {"url": "Validator.CustomField.html#method_clear", "access": "", "host": "Validator.CustomField", "type": "method", "name": "clear"}, {"url": "Validator.GroupBaseField.html#method_clear", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "clear"}, {"url": "Validator.SelectField.html#method_clear", "access": "", "host": "Validator.SelectField", "type": "method", "name": "clear"}, {"url": "Validator.TextBaseField.html#method_clear", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "clear"}, {"url": "Validator.BaseInputField.html#config_correctCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicator"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorText"}, {"url": "Validator.BaseInputField.html#config_createCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createCorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_createIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createIncorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_destructor", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "destructor"}, {"url": "Validator.BaseInputField.html#method_disable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "disable"}, {"url": "Validator.Button.html#method_disable", "access": "", "host": "Validator.Button", "type": "method", "name": "disable"}, {"url": "Validator.CheckboxField.html#method_disable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "disable"}, {"url": "Validator.CustomField.html#method_disable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "disable"}, {"url": "Validator.GroupBaseField.html#method_disable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "disable"}, {"url": "Validator.TextBaseField.html#method_disable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "disable"}, {"url": "Validator.BaseInputField.html#config_disabled", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "disabled"}, {"url": "Validator.BaseInputField.html#property_DOUBLEREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "DOUBLEREGEX"}, {"url": "Validator.BaseInputField.html#property_EMAILREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "EMAILREGEX"}, {"url": "Validator.SelectField.html#config_emptyValue", "access": "", "host": "Validator.SelectField", "type": "config", "name": "emptyValue"}, {"url": "Validator.BaseInputField.html#method_enable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "enable"}, {"url": "Validator.Button.html#method_enable", "access": "", "host": "Validator.Button", "type": "method", "name": "enable"}, {"url": "Validator.CheckboxField.html#method_enable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "enable"}, {"url": "Validator.CustomField.html#method_enable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "enable"}, {"url": "Validator.GroupBaseField.html#method_enable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "enable"}, {"url": "Validator.TextBaseField.html#method_enable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "enable"}, {"url": "Validator.BaseInputField.html#method__evtOnChange", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "_evtOnChange"}, {"url": "Validator.TextBaseField.html#config_formatter", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "formatter"}, {"url": "Validator.BaseInputField.html#method_getId", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getId"}, {"url": "Validator.CheckboxField.html#method_getId", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getId"}, {"url": "Validator.CustomField.html#method_getId", "access": "", "host": "Validator.CustomField", "type": "method", "name": "getId"}, {"url": "Validator.GroupBaseField.html#method_getId", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getId"}, {"url": "Validator.TextBaseField.html#method_getId", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getId"}, {"url": "Validator.GroupBaseField.html#method_getInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInput"}, {"url": "Validator.BaseInputField.html#method_getInputDOM", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.CheckboxField.html#method_getInputDOM", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.GroupBaseField.html#method_getInputDOM", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.TextBaseField.html#method_getInputDOM", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.PasswordField.html#method_getMatchedLevel", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "getMatchedLevel"}, {"url": "Validator.GroupBaseField.html#config_groupDOM", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "groupDOM"}, {"url": "Validator.CustomField.html#config_id", "access": "", "host": "Validator.CustomField", "type": "config", "name": "id"}, {"url": "Validator.GroupBaseField.html#config_id", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "id"}, {"url": "Validator.BaseInputField.html#config_incorrectCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorText"}, {"url": "Validator.BaseInputField.html#config_indicatorType", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "indicatorType"}, {"url": "Validator.BaseInputField.html#method_initializeEvents", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.CheckboxField.html#method_initializeEvents", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.GroupBaseField.html#method_initializeEvents", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.SelectField.html#method_initializeEvents", "access": "", "host": "Validator.SelectField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.TextBaseField.html#method_initializeEvents", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.BaseInputField.html#method_initializeInput", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeInput"}, {"url": "Validator.CheckboxField.html#method_initializeInput", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeInput"}, {"url": "Validator.GroupBaseField.html#method_initializeInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.TextBaseField.html#method_initializeInput", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.BaseInputField.html#method_initializer", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializer"}, {"url": "Validator.CheckboxField.html#config_inputDOM", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "inputDOM"}, {"url": "Validator.TextBaseField.html#config_inputDOM", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "inputDOM"}, {"url": "Validator.BaseInputField.html#method_inputIsOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "inputIsOn"}, {"url": "Validator.BaseInputField.html#method_insertBeside", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CheckboxField.html#method_insertBeside", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CustomField.html#method_insertBeside", "access": "", "host": "Validator.CustomField", "type": "method", "name": "insertBeside"}, {"url": "Validator.GroupBaseField.html#method_insertBeside", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.TextBaseField.html#method_insertBeside", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.BaseInputField.html#property_INTEGERREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "INTEGERREGEX"}, {"url": "Validator.BaseInputField.html#method_isEmpty", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CheckboxField.html#method_isEmpty", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CustomField.html#method_isEmpty", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GroupBaseField.html#method_isEmpty", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.SelectField.html#method_isEmpty", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isEmpty"}, {"url": "Validator.TextBaseField.html#method_isEmpty", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GroupBaseField.html#method_isGroup", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isGroup"}, {"url": "Validator.BaseInputField.html#config_isOn", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "isOn"}, {"url": "Validator.BaseInputField.html#method_isValid", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isValid"}, {"url": "Validator.CheckboxField.html#method_isValid", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isValid"}, {"url": "Validator.CustomField.html#method_isValid", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isValid"}, {"url": "Validator.DoubleField.html#method_isValid", "access": "", "host": "Validator.DoubleField", "type": "method", "name": "isValid"}, {"url": "Validator.GroupBaseField.html#method_isValid", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.IntegerField.html#method_isValid", "access": "", "host": "Validator.IntegerField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#method_isValid", "access": "", "host": "Validator.MatchField", "type": "method", "name": "isValid"}, {"url": "Validator.PasswordField.html#method_isValid", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "isValid"}, {"url": "Validator.SelectField.html#method_isValid", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isValid"}, {"url": "Validator.TextBaseField.html#method_isValid", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#config_matchDOM", "access": "", "host": "Validator.MatchField", "type": "config", "name": "matchDOM"}, {"url": "Validator.DoubleField.html#config_max", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "max"}, {"url": "Validator.PasswordField.html#config_max", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "max"}, {"url": "Validator.DoubleField.html#config_maxDecimalPlaces", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxDecimalPlaces"}, {"url": "Validator.DoubleField.html#config_maxInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxInclusive"}, {"url": "Validator.BaseInputField.html#property_MAX_INTEGER", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "MAX_INTEGER"}, {"url": "Validator.TextBaseField.html#config_maxLength", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "maxLength"}, {"url": "Validator.GroupBaseField.html#config_maxValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "maxValid"}, {"url": "Validator.PasswordField.html#config_med", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "med"}, {"url": "Validator.PasswordField.html#config_medIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "medIndicator"}, {"url": "Validator.PasswordField.html#property_MediumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MediumPassword"}, {"url": "Validator.GroupBaseField.html#property_members", "access": "", "host": "Validator.GroupBaseField", "type": "property", "name": "members"}, {"url": "Validator.GroupBaseField.html#config_membersJSON", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "membersJSON"}, {"url": "Validator.DoubleField.html#config_min", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#config_min", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#property_MinimumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MinimumPassword"}, {"url": "Validator.DoubleField.html#config_minInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "minInclusive"}, {"url": "Validator.PasswordField.html#config_minIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "minIndicator"}, {"url": "Validator.GroupBaseField.html#config_minValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "minValid"}, {"url": "Validator.BaseInputField.html#event_onchange", "access": "", "host": "Validator.BaseInputField", "type": "event", "name": "onchange"}, {"url": "Validator.BaseInputField.html#config_optional", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "optional"}, {"url": "Validator.TextBaseField.html#config_regex", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "regex"}, {"url": "Validator.PasswordField.html#config_requiredLevel", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "requiredLevel"}, {"url": "Validator.BaseInputField.html#method_setupDomItem.", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupDomItem."}, {"url": "Validator.BaseInputField.html#method_setupIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupIndicators"}, {"url": "Validator.BaseInputField.html#method_showCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showCorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showNoIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.CheckboxField.html#method_showNoIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.GroupBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showNoIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.TextBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showPasswordIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showPasswordIndicator"}, {"url": "Validator.BaseInputField.html#method_standardElSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardElSetter"}, {"url": "Validator.BaseInputField.html#method_standardRegexSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardRegexSetter"}, {"url": "Validator.PasswordField.html#property_StrongPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "StrongPassword"}, {"url": "Validator.BaseInputField.html#method_synchronize", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "synchronize"}, {"url": "Validator.TextBaseField.html#config_textType", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "textType"}, {"url": "Validator.BaseInputField.html#method_turnOff", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOff"}, {"url": "Validator.CustomField.html#method_turnOff", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOff"}, {"url": "Validator.GroupBaseField.html#method_turnOff", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOff"}, {"url": "Validator.BaseInputField.html#method_turnOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#method_turnOn", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOn"}, {"url": "Validator.GroupBaseField.html#method_turnOn", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#config_validatorObject", "access": "", "host": "Validator.CustomField", "type": "config", "name": "validatorObject"}, {"url": "Validator.CheckboxField.html#config_validWhenChecked", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "validWhenChecked"}];
+</script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: Validator   BaseInputField.js  (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258223720.61" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258223720.61" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1258223720.61"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1258223720.61"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>Validator&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_validator.html" title="Validator">Validator</a>
+                
+                 &gt; BaseInputField.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="nx">YUI</span><span class="p">().</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;Validator.BaseInputField&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">Y</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">YL</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Lang</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This class is what all Input fields used in the form validator will inherit from.  This provides</span>
+<span class="cm">     * the basic general attributes and functions required by all input fields.</span>
+<span class="cm">     * @requires yahoo.base, yahoo.dom, yahoo.event</span>
+<span class="cm">     * @namespace Validator</span>
+<span class="cm">     * @class BaseInputField</span>
+<span class="cm">     * @extends Base</span>
+<span class="cm">     * @constructor</span>
+<span class="cm">     */</span>
+    <span class="kd">function</span> <span class="nx">_BaseInputField</span><span class="p">(){</span>
+        <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">CE_ONCHANGE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">augment</span><span class="p">(</span><span class="nx">_BaseInputField</span><span class="p">,</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">EventTarget</span><span class="p">);</span>
+    <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">staticVariables</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The maximum value for an integer.  Used as a default min/max value on number fields</span>
+<span class="cm">         * @property MAX_INTEGER</span>
+<span class="cm">         * @type number</span>
+<span class="cm">         * @static</span>
+<span class="cm">         */</span>
+        <span class="nx">MAX_INTEGER</span><span class="o">:</span><span class="mi">2147483647</span><span class="p">,</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Regular expression used by the Integer field for ensuring the input matches the format of an integer</span>
+<span class="cm">         * @property INTEGERREGEX</span>
+<span class="cm">         * @type regex</span>
+<span class="cm">         * @static</span>
+<span class="cm">         */</span>
+        <span class="nx">INTEGERREGEX</span><span class="o">:</span><span class="sr">/(^-?\d\d*\.\d*$)|(^-?\d\d*$)|(^-?\.\d\d*$)/</span><span class="p">,</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Regular expression used by the DoubleField for ensuring the input matches the format of an double</span>
+<span class="cm">         * @property DOUBLEREGEX</span>
+<span class="cm">         * @type regex</span>
+<span class="cm">         * @static</span>
+<span class="cm">         */</span>
+        <span class="nx">DOUBLEREGEX</span><span class="o">:</span><span class="sr">/(^-?\d\d*\.\d+$)|(^-?\d\d*$)|(^-?\.\d\d*$)/</span><span class="p">,</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Regular expression for an e-mail.</span>
+<span class="cm">         * @property EMAILREGEX</span>
+<span class="cm">         * @type regex</span>
+<span class="cm">         * @static</span>
+<span class="cm">         */</span>
+        <span class="nx">EMAILREGEX</span><span class="o">:</span><span class="sr">/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/</span>
+    <span class="p">};</span>
+
+    <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">staticFunctions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the setter used for setting regular expression properties.  IF the value is a string,</span>
+<span class="cm">         * it will parse the regular expression and return it.  If it is a regex, it will simply return the</span>
+<span class="cm">         * value passed in.</span>
+<span class="cm">         * @method standardRegexSetter</span>
+<span class="cm">         * @param {String|Regex} val</span>
+<span class="cm">         * @return {Regex} regular expression</span>
+<span class="cm">         * @static</span>
+<span class="cm">         */</span>
+        <span class="nx">standardRegexSetter</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">val</span><span class="p">)){</span>
+                <span class="kd">var</span> <span class="nx">valToUse</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">valToUse</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+                    <span class="nx">valToUse</span> <span class="o">=</span> <span class="nx">valToUse</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">valToUse</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">valToUse</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span><span class="p">){</span>
+                    <span class="nx">valToUse</span> <span class="o">=</span> <span class="nx">valToUse</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">valToUse</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">valToUse</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Static function for setting an dom element as an attribute.  This will</span>
+<span class="cm">         * allow that attribute to support an id or the element itself.</span>
+<span class="cm">         * @method standardElSetter</span>
+<span class="cm">         * @static</span>
+<span class="cm">         * @param {HTMLElement|String} el Id or el that is to be set for the property in question.</span>
+<span class="cm">         * @return {HTMLElement} dom object</span>
+<span class="cm">         */</span>
+        <span class="nx">standardElSetter</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">el</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">el</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="kd">var</span> <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">el</span><span class="p">)){</span>
+                <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">rtVl</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">rtVl</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Static function that will set a boolean value for a property</span>
+<span class="cm">         * @method BOOLEANSETTER</span>
+<span class="cm">         * @static</span>
+<span class="cm">         * @param {boolean|string} val value of yes/no/true/false</span>
+<span class="cm">         * @return {boolean} a boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">BOOLEANSETTER</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isBoolean</span><span class="p">(</span><span class="nx">val</span><span class="p">)){</span>
+                <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">val</span><span class="p">)){</span>
+                <span class="k">return</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">return</span> <span class="nx">val</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">val</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">ATTRS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be set to true if the Incorrect indicator is to be created</span>
+<span class="cm">         * upon instantiation of the input field.</span>
+<span class="cm">         * @config createIncorrectIndicator</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">createIncorrectIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be set to true if the correct indicator is to be created</span>
+<span class="cm">         * upon instantiation of the input field.</span>
+<span class="cm">         * @config createCorrectIndicator</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">createCorrectIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the DOM element type for the indicator.  The default for</span>
+<span class="cm">         * this will be span.</span>
+<span class="cm">         * @config indicatorType</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">indicatorType</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the css that is to be applied to the indicator.  Default</span>
+<span class="cm">         * will be correctIndicator</span>
+<span class="cm">         * @config correctIndicatorCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">correctIndicatorCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the css that is to be applied to the indicator.  Default</span>
+<span class="cm">         * will be incorrectIndicator</span>
+<span class="cm">         * @config incorrectIndicatorCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">incorrectIndicatorCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If set, this will be shown to indicate that the input is correct</span>
+<span class="cm">         * @config correctIndicator</span>
+<span class="cm">         * @type HTMLElement</span>
+<span class="cm">         */</span>
+        <span class="nx">correctIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nx">setter</span><span class="o">:</span><span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">staticFunctions</span><span class="p">.</span><span class="nx">standardElSetter</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be the text that will be used inside the DOM of the incorrect indicator.</span>
+<span class="cm">         * If none is provided, none will be used</span>
+<span class="cm">         * @config incorrectIndicatorText</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">incorrectIndicatorText</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be the text that will be used inside the DOM of the correct indicator.</span>
+<span class="cm">         * If none is provided, none will be used</span>
+<span class="cm">         * @config correctIndicatorText</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">correctIndicatorText</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If set, this will be shown to indicate that the input is incorrect</span>
+<span class="cm">         * @config incorrectIndicator</span>
+<span class="cm">         * @type HTMLElement</span>
+<span class="cm">         */</span>
+        <span class="nx">incorrectIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nx">setter</span><span class="o">:</span><span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">staticFunctions</span><span class="p">.</span><span class="nx">standardElSetter</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If set, this will be applied to the the input to signify that it is correct</span>
+<span class="cm">         * @config correctCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">correctCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If set, this will be applied to the the input to signify that it is incorrect</span>
+<span class="cm">         * @config incorrectCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">incorrectCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is set to true when the input is considered disabled.  False otherwise</span>
+<span class="cm">         * @config disabled</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">disabled</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If false, this will signal that the input is considered off, and is not factored</span>
+<span class="cm">         * into the validation.</span>
+<span class="cm">         * @config isOn</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">isOn</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If set, this will show that the input is considered optional, and if not filled</span>
+<span class="cm">         * in, won&#39;t cause the form to be invalid.</span>
+<span class="cm">         * @config optional</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">optional</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">NAME</span> <span class="o">=</span> <span class="s1">&#39;BaseInputField&#39;</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This is the even that is invoked when the input field is considered changed</span>
+<span class="cm">     * @event onchange</span>
+<span class="cm">     */</span>
+    <span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">CE_ONCHANGE</span> <span class="o">=</span> <span class="s1">&#39;inputfield:onchanged&#39;</span><span class="p">;</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">_BaseInputField</span><span class="p">,</span><span class="nx">Y</span><span class="p">.</span><span class="nx">Base</span><span class="p">,{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * To be overridden by subclasses.  This will typically initialize all inidicators</span>
+<span class="cm">         * and any other initialization that is required</span>
+<span class="cm">         * @method initializeInput</span>
+<span class="cm">         * @param {Validator.Form} validator Validator to which the Base Input gets default values from.</span>
+<span class="cm">         */</span>
+        <span class="nx">initializeInput</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">validator</span><span class="p">){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will return the dom that represents the input.  This will be overriden</span>
+<span class="cm">         * by all subclasses</span>
+<span class="cm">         * @method getInputDOM</span>
+<span class="cm">         * @return {HTMLElement} input dom for this field.</span>
+<span class="cm">         */</span>
+        <span class="nx">getInputDOM</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="kc">null</span><span class="p">;},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Returns true if the given input is turned on.</span>
+<span class="cm">         * @method inputIsOn</span>
+<span class="cm">         * @return {boolean} true if the input is on.</span>
+<span class="cm">         */</span>
+        <span class="nx">inputIsOn</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;isOn&#39;</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will clear the input of all value.  This is typically overriden</span>
+<span class="cm">         * by the subclasses</span>
+<span class="cm">         * @param {boolean} silent Set to true if the change event is NOT to be fired afterwards, as a result the form</span>
+<span class="cm">         * would not be updated to reflect any changes.</span>
+<span class="cm">         */</span>
+        <span class="nx">clear</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">silent</span><span class="p">)</span> <span class="p">{},</span>
+        <span class="nx">isGroup</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="kc">false</span><span class="p">;},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will set the disabled attribute to false.</span>
+<span class="cm">         * @method enable</span>
+<span class="cm">         */</span>
+        <span class="nx">enable</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will set the disabled attribute to true.</span>
+<span class="cm">         * @method disable</span>
+<span class="cm">         */</span>
+        <span class="nx">disable</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will syncronize all attributes found inline in the EL.</span>
+<span class="cm">         * Inline attributes will override JSON defined attributes.</span>
+<span class="cm">         * @method synchronize</span>
+<span class="cm">         * @param {HTMLElement} el Element that will have inline attributes pertaining to the input.</span>
+<span class="cm">         */</span>
+        <span class="nx">synchronize</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttrs</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span><span class="nx">value</span><span class="p">,</span><span class="nx">key</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">attributes</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">){</span> <span class="c1">// get rid of warning in YUI builder.</span>
+                    <span class="nx">value</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:&#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">value</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Returns true if the input for the field is valid.  This must</span>
+<span class="cm">         * be overridden by the subclasses.</span>
+<span class="cm">         * @method isValid</span>
+<span class="cm">         * @return {boolean} returns true if the input for the field is valid.</span>
+<span class="cm">         */</span>
+        <span class="nx">isValid</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">throw</span> <span class="s1">&#39;Plesae override the isValid function&#39;</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will turn the input off.  After this it will not be considered</span>
+<span class="cm">         * in determining if the form is valid.</span>
+<span class="cm">         * @method turnOff</span>
+<span class="cm">         */</span>
+        <span class="nx">turnOff</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;isOn&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_evtOnChange</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will turn the input on.  After this it WILL be considered</span>
+<span class="cm">         * in determining if the form is valid.</span>
+<span class="cm">         * @method turnOn</span>
+<span class="cm">         */</span>
+        <span class="nx">turnOn</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;isOn&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_evtOnChange</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will ensure the proper css and/or dom is showing to indicate</span>
+<span class="cm">         * that the input is valid or invalid.</span>
+<span class="cm">         * @method checkIndicators</span>
+<span class="cm">         */</span>
+        <span class="nx">checkIndicators</span><span class="o">:</span><span class="kd">function</span><span class="p">(){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be overriden by subclasses, but this will hide the incorrect</span>
+<span class="cm">         * indicator and show the correct indicator if there is one.  It will also</span>
+<span class="cm">         * apply the correct css to the input if there is correct css defined.</span>
+<span class="cm">         * @method showCorrectIndicator</span>
+<span class="cm">         */</span>
+        <span class="nx">showCorrectIndicator</span><span class="o">:</span><span class="kd">function</span><span class="p">(){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be overriden by subclasses, but this will hide the correct</span>
+<span class="cm">         * indicator and show the incorrect indicator if there is one.  It will also</span>
+<span class="cm">         * apply the incorrect css to the input if there is incorrect css defined.</span>
+<span class="cm">         * @method showIncorrectIndicator</span>
+<span class="cm">         */</span>
+        <span class="nx">showIncorrectIndicator</span><span class="o">:</span><span class="kd">function</span><span class="p">(){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will be overriden by subclasses, but this will hide all indicators</span>
+<span class="cm">         * and remove all indicator css from the input.</span>
+<span class="cm">         * @method showNoIndicators</span>
+<span class="cm">         */</span>
+        <span class="nx">showNoIndicators</span><span class="o">:</span><span class="kd">function</span><span class="p">(){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This function will setup the input field based on the attributes</span>
+<span class="cm">         * given in the constructor and attributes that may be inline in the DOM.</span>
+<span class="cm">         * @method setupIndicators</span>
+<span class="cm">         */</span>
+        <span class="nx">setupIndicators</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">correctIndicator</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;correctIndicator&#39;</span><span class="p">),</span>
+            <span class="nx">incorrectIndicator</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;incorrectIndicator&#39;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;createCorrectIndicator&#39;</span><span class="p">)){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;correctIndicator&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">setupDomItem</span><span class="p">(</span><span class="nx">correctIndicator</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;correctIndicatorText&#39;</span><span class="p">),</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;correctIndicatorCss&#39;</span><span class="p">)));</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;createIncorrectIndicator&#39;</span><span class="p">)){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;incorrectIndicator&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">setupDomItem</span><span class="p">(</span><span class="nx">incorrectIndicator</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;incorrectIndicatorText&#39;</span><span class="p">),</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;incorrectIndicatorCss&#39;</span><span class="p">)));</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * If the given EL is a string, it will create a dom object and have it inserted</span>
+<span class="cm">         * beside the input.  It will then ensure that all the defaults are set on the dom.</span>
+<span class="cm">         * @method setupDomItem.</span>
+<span class="cm">         * @param {HTMLElement} el Element that will be used as an indicator.</span>
+<span class="cm">         * @param {String} html Html that will go inside the el</span>
+<span class="cm">         * @param {String} className className that is to be applied to the el.</span>
+<span class="cm">         */</span>
+        <span class="nx">setupDomItem</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nx">html</span><span class="p">,</span><span class="nx">className</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">theDom</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+            <span class="c1">// create the dom element, and then insert it beside the input dom.</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nx">theDom</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">theDom</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">||</span> <span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">theDom</span><span class="p">)){</span>
+                <span class="nx">theDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;indicatorType&#39;</span><span class="p">));</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">el</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                    <span class="nx">theDom</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">insertBeside</span><span class="p">(</span><span class="nx">theDom</span><span class="p">);</span>
+                <span class="nx">theDom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">html</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nx">theDom</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="o">||</span> <span class="nx">theDom</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">theDom</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">className</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">className</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)){</span>
+                <span class="nx">theDom</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">className</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">theDom</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The input can optionally override this function so they can</span>
+<span class="cm">         * retrieve their particular input from the form validator.  If they do</span>
+<span class="cm">         * not override this, then everyting will still work, they just won&#39;t be</span>
+<span class="cm">         * able to retreive it by name from the form validator.</span>
+<span class="cm">         * @method getId</span>
+<span class="cm">         * @return {number} the id of the input field</span>
+<span class="cm">         */</span>
+        <span class="nx">getId</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="kc">null</span><span class="p">;},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Returns true if the input for the field is considered empty</span>
+<span class="cm">         * @method isEmpty</span>
+<span class="cm">         * @return {boolean} True if the input field is considered empty.</span>
+<span class="cm">         */</span>
+        <span class="nx">isEmpty</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">throw</span> <span class="s1">&#39;Plesae override the isEmpty function&#39;</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will initialize the events that will notify this input if it was changed</span>
+<span class="cm">         * If target is null, then the target will be the Input Field.</span>
+<span class="cm">         * @method initializeEvents</span>
+<span class="cm">         */</span>
+        <span class="nx">initializeEvents</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">){},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will get called when the input is changed, which will in turn fire the inputChangedEvent.</span>
+<span class="cm">         * If the input is in a group, the group&#39;s event will get fired, not the field&#39;s</span>
+<span class="cm">         * @method _evtOnChange</span>
+<span class="cm">         */</span>
+        <span class="nx">_evtOnChange</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkIndicators</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">_BaseInputField</span><span class="p">.</span><span class="nx">CE_ONCHANGE</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This function will insert the given el beside the main input.  This must be overriden</span>
+<span class="cm">         * in the subclasses.  To implement this, simply find the parent of the current input</span>
+<span class="cm">         * starting from the body tag or the form tag and work your way down until you find it.</span>
+<span class="cm">         * @method insertBeside</span>
+<span class="cm">         * @param {HTMLElement} el DOM object to be insert beside the main input.</span>
+<span class="cm">         */</span>
+        <span class="nx">insertBeside</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Initializer, called before the class is instantiated</span>
+<span class="cm">         * @method initializer</span>
+<span class="cm">         */</span>
+        <span class="nx">initializer</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * destructor, called after the class is destroyed</span>
+<span class="cm">         * @method destructor</span>
+<span class="cm">         */</span>
+        <span class="nx">destructor</span><span class="o">:</span><span class="kd">function</span><span class="p">(){}</span>
+    <span class="p">});</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">BaseInputField</span> <span class="o">=</span> <span class="nx">_BaseInputField</span><span class="p">;</span>
+<span class="p">},</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,{</span><span class="nx">requires</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">,</span><span class="s1">&#39;dom&#39;</span><span class="p">,</span><span class="s1">&#39;event&#39;</span><span class="p">],</span><span class="nx">use</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_Validator.html" title="Validator">Validator</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Validator.BaseInputField.html" title="Validator.BaseInputField">Validator.BaseInputField</a></li>
+                                <li class=""><a href="Validator.Button.html" title="Validator.Button">Validator.Button</a></li>
+                                <li class=""><a href="Validator.CheckboxField.html" title="Validator.CheckboxField">Validator.CheckboxField</a></li>
+                                <li class=""><a href="Validator.CustomField.html" title="Validator.CustomField">Validator.CustomField</a></li>
+                                <li class=""><a href="Validator.DoubleField.html" title="Validator.DoubleField">Validator.DoubleField</a></li>
+                                <li class=""><a href="Validator.Form.html" title="Validator.Form">Validator.Form</a></li>
+                                <li class=""><a href="Validator.GLOBAL.html" title="Validator.GLOBAL">Validator.GLOBAL</a></li>
+                                <li class=""><a href="Validator.GroupBaseField.html" title="Validator.GroupBaseField">Validator.GroupBaseField</a></li>
+                                <li class=""><a href="Validator.IntegerField.html" title="Validator.IntegerField">Validator.IntegerField</a></li>
+                                <li class=""><a href="Validator.MatchField.html" title="Validator.MatchField">Validator.MatchField</a></li>
+                                <li class=""><a href="Validator.PasswordField.html" title="Validator.PasswordField">Validator.PasswordField</a></li>
+                                <li class=""><a href="Validator.SelectField.html" title="Validator.SelectField">Validator.SelectField</a></li>
+                                <li class=""><a href="Validator.TextBaseField.html" title="Validator.TextBaseField">Validator.TextBaseField</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class="selected"><a href="BaseInputField.js.html" title="BaseInputField.js">BaseInputField.js</a></li>
+                                <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
+                                <li class=""><a href="CheckboxField.js.html" title="CheckboxField.js">CheckboxField.js</a></li>
+                                <li class=""><a href="CustomField.js.html" title="CustomField.js">CustomField.js</a></li>
+                                <li class=""><a href="DoubleField.js.html" title="DoubleField.js">DoubleField.js</a></li>
+                                <li class=""><a href="GroupBaseField.js.html" title="GroupBaseField.js">GroupBaseField.js</a></li>
+                                <li class=""><a href="IntegerField.js.html" title="IntegerField.js">IntegerField.js</a></li>
+                                <li class=""><a href="MatchField.js.html" title="MatchField.js">MatchField.js</a></li>
+                                <li class=""><a href="PasswordField.js.html" title="PasswordField.js">PasswordField.js</a></li>
+                                <li class=""><a href="SelectField.js.html" title="SelectField.js">SelectField.js</a></li>
+                                <li class=""><a href="TextBaseField.js.html" title="TextBaseField.js">TextBaseField.js</a></li>
+                                <li class=""><a href="Validator.js.html" title="Validator.js">Validator.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Validator.Form.html#method_addInlineInput", "access": "", "host": "Validator.Form", "type": "method", "name": "addInlineInput"}, {"url": "Validator.GroupBaseField.html#method_addInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "addInput"}, {"url": "Validator.Form.html#method_addInput", "access": "", "host": "Validator.Form", "type": "method", "name": "addInput"}, {"url": "Validator.BaseInputField.html#method_BOOLEANSETTER", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "BOOLEANSETTER"}, {"url": "Validator.Form.html#method_BOOLEANSETTER", "access": "", "host": "Validator.Form", "type": "method", "name": "BOOLEANSETTER"}, {"url": "Validator.Button.html#config_buttonEl", "access": "", "host": "Validator.Button", "type": "config", "name": "buttonEl"}, {"url": "Validator.Form.html#config_buttonJSON", "access": "", "host": "Validator.Form", "type": "config", "name": "buttonJSON"}, {"url": "Validator.Form.html#property_buttons", "access": "", "host": "Validator.Form", "type": "property", "name": "buttons"}, {"url": "Validator.MatchField.html#config_caseSensitive", "access": "", "host": "Validator.MatchField", "type": "config", "name": "caseSensitive"}, {"url": "Validator.Form.html#method_checkAttribute", "access": "", "host": "Validator.Form", "type": "method", "name": "checkAttribute"}, {"url": "Validator.TextBaseField.html#method_checkFormat", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkFormat"}, {"url": "Validator.Form.html#method_checkFormValues", "access": "", "host": "Validator.Form", "type": "method", "name": "checkFormValues"}, {"url": "Validator.BaseInputField.html#method_checkIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CheckboxField.html#method_checkIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CustomField.html#method_checkIndicators", "access": "", "host": "Validator.CustomField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.GroupBaseField.html#method_checkIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.PasswordField.html#method_checkIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.TextBaseField.html#method_checkIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.Form.html#config_checkOnSubmit", "access": "", "host": "Validator.Form", "type": "config", "name": "checkOnSubmit"}, {"url": "Validator.BaseInputField.html#method_clear", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "clear"}, {"url": "Validator.CheckboxField.html#method_clear", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "clear"}, {"url": "Validator.CustomField.html#method_clear", "access": "", "host": "Validator.CustomField", "type": "method", "name": "clear"}, {"url": "Validator.GroupBaseField.html#method_clear", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "clear"}, {"url": "Validator.SelectField.html#method_clear", "access": "", "host": "Validator.SelectField", "type": "method", "name": "clear"}, {"url": "Validator.TextBaseField.html#method_clear", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "clear"}, {"url": "Validator.Form.html#method_clear", "access": "", "host": "Validator.Form", "type": "method", "name": "clear"}, {"url": "Validator.Form.html#method_constructInlineGroup", "access": "", "host": "Validator.Form", "type": "method", "name": "constructInlineGroup"}, {"url": "Validator.BaseInputField.html#config_correctCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicator"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorText"}, {"url": "Validator.Form.html#config_correctIndicatorText", "access": "", "host": "Validator.Form", "type": "config", "name": "correctIndicatorText"}, {"url": "Validator.BaseInputField.html#config_createCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createCorrectIndicator"}, {"url": "Validator.Form.html#config_createCorrectIndicator", "access": "", "host": "Validator.Form", "type": "config", "name": "createCorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_createIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createIncorrectIndicator"}, {"url": "Validator.Form.html#config_createIncorrectIndicator", "access": "", "host": "Validator.Form", "type": "config", "name": "createIncorrectIndicator"}, {"url": "Validator.Form.html#property_customGlobal", "access": "", "host": "Validator.Form", "type": "property", "name": "customGlobal"}, {"url": "Validator.Form.html#config_defaultCorrectIndicatorCss", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultCorrectIndicatorCss"}, {"url": "Validator.Form.html#config_defaultIncorrectIndicatorCss", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultIncorrectIndicatorCss"}, {"url": "Validator.Form.html#config_defaultIndicatorDomType", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultIndicatorDomType"}, {"url": "Validator.BaseInputField.html#method_destructor", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "destructor"}, {"url": "Validator.BaseInputField.html#method_disable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "disable"}, {"url": "Validator.Button.html#method_disable", "access": "", "host": "Validator.Button", "type": "method", "name": "disable"}, {"url": "Validator.CheckboxField.html#method_disable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "disable"}, {"url": "Validator.CustomField.html#method_disable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "disable"}, {"url": "Validator.GroupBaseField.html#method_disable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "disable"}, {"url": "Validator.TextBaseField.html#method_disable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "disable"}, {"url": "Validator.Form.html#method_disableButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "disableButtons"}, {"url": "Validator.BaseInputField.html#config_disabled", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "disabled"}, {"url": "Validator.BaseInputField.html#property_DOUBLEREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "DOUBLEREGEX"}, {"url": "Validator.BaseInputField.html#property_EMAILREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "EMAILREGEX"}, {"url": "Validator.SelectField.html#config_emptyValue", "access": "", "host": "Validator.SelectField", "type": "config", "name": "emptyValue"}, {"url": "Validator.BaseInputField.html#method_enable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "enable"}, {"url": "Validator.Button.html#method_enable", "access": "", "host": "Validator.Button", "type": "method", "name": "enable"}, {"url": "Validator.CheckboxField.html#method_enable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "enable"}, {"url": "Validator.CustomField.html#method_enable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "enable"}, {"url": "Validator.GroupBaseField.html#method_enable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "enable"}, {"url": "Validator.TextBaseField.html#method_enable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "enable"}, {"url": "Validator.Form.html#method_enableButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "enableButtons"}, {"url": "Validator.BaseInputField.html#method__evtOnChange", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "_evtOnChange"}, {"url": "Validator.Form.html#config_excludedButtons", "access": "", "host": "Validator.Form", "type": "config", "name": "excludedButtons"}, {"url": "Validator.Form.html#config_fieldJSON", "access": "", "host": "Validator.Form", "type": "config", "name": "fieldJSON"}, {"url": "Validator.Form.html#config_form", "access": "", "host": "Validator.Form", "type": "config", "name": "form"}, {"url": "Validator.TextBaseField.html#config_formatter", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "formatter"}, {"url": "Validator.BaseInputField.html#method_getId", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getId"}, {"url": "Validator.CheckboxField.html#method_getId", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getId"}, {"url": "Validator.CustomField.html#method_getId", "access": "", "host": "Validator.CustomField", "type": "method", "name": "getId"}, {"url": "Validator.GroupBaseField.html#method_getId", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getId"}, {"url": "Validator.TextBaseField.html#method_getId", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getId"}, {"url": "Validator.GLOBAL.html#method_GETINLINEDECLARATIONS", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "GETINLINEDECLARATIONS"}, {"url": "Validator.GroupBaseField.html#method_getInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInput"}, {"url": "Validator.Form.html#method_getInput", "access": "", "host": "Validator.Form", "type": "method", "name": "getInput"}, {"url": "Validator.BaseInputField.html#method_getInputDOM", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.CheckboxField.html#method_getInputDOM", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.GroupBaseField.html#method_getInputDOM", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.TextBaseField.html#method_getInputDOM", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.PasswordField.html#method_getMatchedLevel", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "getMatchedLevel"}, {"url": "Validator.GLOBAL.html#method_GETSUBMITBUTTONS", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "GETSUBMITBUTTONS"}, {"url": "Validator.GroupBaseField.html#config_groupDOM", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "groupDOM"}, {"url": "Validator.GLOBAL.html#method_guid", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "guid"}, {"url": "Validator.CustomField.html#config_id", "access": "", "host": "Validator.CustomField", "type": "config", "name": "id"}, {"url": "Validator.GroupBaseField.html#config_id", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "id"}, {"url": "Validator.BaseInputField.html#config_incorrectCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorText"}, {"url": "Validator.Form.html#config_incorrectIndicatorText", "access": "", "host": "Validator.Form", "type": "config", "name": "incorrectIndicatorText"}, {"url": "Validator.BaseInputField.html#config_indicatorType", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "indicatorType"}, {"url": "Validator.Form.html#method_initializeButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeButtons"}, {"url": "Validator.BaseInputField.html#method_initializeEvents", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.CheckboxField.html#method_initializeEvents", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.GroupBaseField.html#method_initializeEvents", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.SelectField.html#method_initializeEvents", "access": "", "host": "Validator.SelectField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.TextBaseField.html#method_initializeEvents", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.Form.html#method__initializeEvents", "access": "", "host": "Validator.Form", "type": "method", "name": "_initializeEvents"}, {"url": "Validator.Form.html#method_initializeInlineInputs", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeInlineInputs"}, {"url": "Validator.BaseInputField.html#method_initializeInput", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeInput"}, {"url": "Validator.CheckboxField.html#method_initializeInput", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeInput"}, {"url": "Validator.GroupBaseField.html#method_initializeInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.TextBaseField.html#method_initializeInput", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.Form.html#method_initializeInputs", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeInputs"}, {"url": "Validator.BaseInputField.html#method_initializer", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializer"}, {"url": "Validator.CheckboxField.html#config_inputDOM", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "inputDOM"}, {"url": "Validator.TextBaseField.html#config_inputDOM", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "inputDOM"}, {"url": "Validator.Form.html#property_inputFields", "access": "", "host": "Validator.Form", "type": "property", "name": "inputFields"}, {"url": "Validator.BaseInputField.html#method_inputIsOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "inputIsOn"}, {"url": "Validator.BaseInputField.html#method_insertBeside", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CheckboxField.html#method_insertBeside", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CustomField.html#method_insertBeside", "access": "", "host": "Validator.CustomField", "type": "method", "name": "insertBeside"}, {"url": "Validator.GroupBaseField.html#method_insertBeside", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.TextBaseField.html#method_insertBeside", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.BaseInputField.html#property_INTEGERREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "INTEGERREGEX"}, {"url": "Validator.BaseInputField.html#method_isEmpty", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CheckboxField.html#method_isEmpty", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CustomField.html#method_isEmpty", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GroupBaseField.html#method_isEmpty", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.SelectField.html#method_isEmpty", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isEmpty"}, {"url": "Validator.TextBaseField.html#method_isEmpty", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GLOBAL.html#method_ISFORM", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "ISFORM"}, {"url": "Validator.GroupBaseField.html#method_isGroup", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isGroup"}, {"url": "Validator.BaseInputField.html#config_isOn", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "isOn"}, {"url": "Validator.BaseInputField.html#method_isValid", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isValid"}, {"url": "Validator.CheckboxField.html#method_isValid", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isValid"}, {"url": "Validator.CustomField.html#method_isValid", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isValid"}, {"url": "Validator.DoubleField.html#method_isValid", "access": "", "host": "Validator.DoubleField", "type": "method", "name": "isValid"}, {"url": "Validator.GroupBaseField.html#method_isValid", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.IntegerField.html#method_isValid", "access": "", "host": "Validator.IntegerField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#method_isValid", "access": "", "host": "Validator.MatchField", "type": "method", "name": "isValid"}, {"url": "Validator.PasswordField.html#method_isValid", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "isValid"}, {"url": "Validator.SelectField.html#method_isValid", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isValid"}, {"url": "Validator.TextBaseField.html#method_isValid", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#config_matchDOM", "access": "", "host": "Validator.MatchField", "type": "config", "name": "matchDOM"}, {"url": "Validator.DoubleField.html#config_max", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "max"}, {"url": "Validator.PasswordField.html#config_max", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "max"}, {"url": "Validator.DoubleField.html#config_maxDecimalPlaces", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxDecimalPlaces"}, {"url": "Validator.DoubleField.html#config_maxInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxInclusive"}, {"url": "Validator.BaseInputField.html#property_MAX_INTEGER", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "MAX_INTEGER"}, {"url": "Validator.TextBaseField.html#config_maxLength", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "maxLength"}, {"url": "Validator.GroupBaseField.html#config_maxValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "maxValid"}, {"url": "Validator.PasswordField.html#config_med", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "med"}, {"url": "Validator.PasswordField.html#config_medIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "medIndicator"}, {"url": "Validator.PasswordField.html#property_MediumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MediumPassword"}, {"url": "Validator.GroupBaseField.html#property_members", "access": "", "host": "Validator.GroupBaseField", "type": "property", "name": "members"}, {"url": "Validator.GroupBaseField.html#config_membersJSON", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "membersJSON"}, {"url": "Validator.DoubleField.html#config_min", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#config_min", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#property_MinimumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MinimumPassword"}, {"url": "Validator.DoubleField.html#config_minInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "minInclusive"}, {"url": "Validator.PasswordField.html#config_minIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "minIndicator"}, {"url": "Validator.GroupBaseField.html#config_minValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "minValid"}, {"url": "Validator.BaseInputField.html#event_onchange", "access": "", "host": "Validator.BaseInputField", "type": "event", "name": "onchange"}, {"url": "Validator.Form.html#method__onFormReset", "access": "", "host": "Validator.Form", "type": "method", "name": "_onFormReset"}, {"url": "Validator.Form.html#method__onFormSubmit", "access": "", "host": "Validator.Form", "type": "method", "name": "_onFormSubmit"}, {"url": "Validator.Form.html#method_onFormValueChanged", "access": "", "host": "Validator.Form", "type": "method", "name": "onFormValueChanged"}, {"url": "Validator.Form.html#event_onsubmit", "access": "", "host": "Validator.Form", "type": "event", "name": "onsubmit"}, {"url": "Validator.Form.html#config_onSubmit", "access": "", "host": "Validator.Form", "type": "config", "name": "onSubmit"}, {"url": "Validator.Form.html#config_onSubmitScope", "access": "", "host": "Validator.Form", "type": "config", "name": "onSubmitScope"}, {"url": "Validator.BaseInputField.html#config_optional", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "optional"}, {"url": "Validator.TextBaseField.html#config_regex", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "regex"}, {"url": "Validator.PasswordField.html#config_requiredLevel", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "requiredLevel"}, {"url": "Validator.BaseInputField.html#method_setupDomItem.", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupDomItem."}, {"url": "Validator.BaseInputField.html#method_setupIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupIndicators"}, {"url": "Validator.Form.html#method_setupInput", "access": "", "host": "Validator.Form", "type": "method", "name": "setupInput"}, {"url": "Validator.BaseInputField.html#method_showCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showCorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showNoIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.CheckboxField.html#method_showNoIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.GroupBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showNoIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.TextBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showPasswordIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showPasswordIndicator"}, {"url": "Validator.BaseInputField.html#method_standardElSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardElSetter"}, {"url": "Validator.BaseInputField.html#method_standardRegexSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardRegexSetter"}, {"url": "Validator.PasswordField.html#property_StrongPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "StrongPassword"}, {"url": "Validator.Form.html#method_submitForm", "access": "", "host": "Validator.Form", "type": "method", "name": "submitForm"}, {"url": "Validator.BaseInputField.html#method_synchronize", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "synchronize"}, {"url": "Validator.TextBaseField.html#config_textType", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "textType"}, {"url": "Validator.BaseInputField.html#method_turnOff", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOff"}, {"url": "Validator.CustomField.html#method_turnOff", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOff"}, {"url": "Validator.GroupBaseField.html#method_turnOff", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOff"}, {"url": "Validator.BaseInputField.html#method_turnOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#method_turnOn", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOn"}, {"url": "Validator.GroupBaseField.html#method_turnOn", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#config_validatorObject", "access": "", "host": "Validator.CustomField", "type": "config", "name": "validatorObject"}, {"url": "Validator.CheckboxField.html#config_validWhenChecked", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "validWhenChecked"}];
+</script>
+</body>
+</html>

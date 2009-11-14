@@ -1,0 +1,797 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: Validator   Validator.js  (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258223720.61" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258223720.61" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1258223720.61"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1258223720.61"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>Validator&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_validator.html" title="Validator">Validator</a>
+                
+                 &gt; Validator.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="nx">YUI</span><span class="p">().</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;Validator.Form&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">Y</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @class GLOBAL</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">YL</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Lang</span><span class="p">,</span> <span class="nx">S4</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">())</span><span class="o">*</span><span class="mh">0x10000</span><span class="p">)</span><span class="o">|</span><span class="mi">0</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This will make a random guid id.  This is useful for ensuring ajax requests</span>
+<span class="cm">     * don&#39;t get cached.</span>
+<span class="cm">     * @method guid</span>
+<span class="cm">     * @return {string} Random guid</span>
+<span class="cm">     */</span>
+    <span class="nx">guid</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">());</span>
+    <span class="p">},</span>
+    <span class="cm">/**</span>
+<span class="cm">     * THis will get all submit buttons in the form that are to be a part of the form validator.</span>
+<span class="cm">     * This will exclude forms inside of other forms that are going to use the form validator.</span>
+<span class="cm">     * @method GETSUBMITBUTTONS</span>
+<span class="cm">     * @param {HTMLElement} parent Dom object who is being searched for submit buttons</span>
+<span class="cm">     * @return list of submit buttons with the given parent dom object.</span>
+<span class="cm">     */</span>
+    <span class="nx">GETSUBMITBUTTONS</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parent</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">rtVl</span> <span class="o">=</span> <span class="p">[],</span><span class="nx">children</span><span class="p">,</span><span class="nx">i</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nx">parent</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">tagName</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;input&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;submit&#39;</span><span class="p">)){</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nx">parent</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="nx">children</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">children</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">children</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+            <span class="nx">children</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+            <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">rtVl</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">GETSUBMITBUTTONS</span><span class="p">(</span><span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Returns true if the given dom is marked as a form (inline).</span>
+<span class="cm">     * @method ISFORM</span>
+<span class="cm">     * @param {HTMLElement} dom dom object</span>
+<span class="cm">     * @return {boolean} true if the given dom object is a form, or is marked as a form inline.</span>
+<span class="cm">     */</span>
+    <span class="nx">ISFORM</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">formIndicator</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">formIndicator</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:Form&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">formIndicator</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">formIndicator</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">formIndicator</span> <span class="o">=</span> <span class="nx">formIndicator</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nx">formIndicator</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">formIndicator</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This will collect all inputs with inline declarations.</span>
+<span class="cm">     * @method GETINLINEDECLARATIONS</span>
+<span class="cm">     * @param {HTMLElement} parent Dom object who&#39;s children are being searched</span>
+<span class="cm">     * @return {HTMLElement[]} a list of all dom object declared as form fields, inside the given parent</span>
+<span class="cm">     */</span>
+    <span class="nx">GETINLINEDECLARATIONS</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parent</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">rtVl</span> <span class="o">=</span> <span class="p">[],</span><span class="nx">isGroup</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span><span class="nx">children</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">inlineIndicator</span><span class="p">,</span><span class="nx">groupIndicator</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+            <span class="nx">inlineIndicator</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:FormField&#39;</span><span class="p">);</span>
+            <span class="nx">groupIndicator</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:FormGroup&#39;</span><span class="p">);</span>
+            <span class="c1">// add parent to the return value if the parent is a form field</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="nx">inlineIndicator</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">inlineIndicator</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="nx">inlineIndicator</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">inlineIndicator</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">))){</span>
+                <span class="nx">rtVl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nx">groupIndicator</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">groupIndicator</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="nx">groupIndicator</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">groupIndicator</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">))){</span>
+                <span class="nx">isGroup</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">children</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">children</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">children</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+            <span class="nx">children</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+            <span class="c1">// if the element in an inner form, we skip it, as we do not want to add</span>
+            <span class="c1">// that form&#39;s inputs to the this form</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ISFORM</span><span class="p">(</span><span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">])){</span>
+                <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">rtVl</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">GETINLINEDECLARATIONS</span><span class="p">(</span><span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// groups need to have their members placed inside json structure so those</span>
+        <span class="c1">// inputs can be put into the group, instead of on the main level.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isGroup</span><span class="p">){</span>
+            <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nx">isGroup</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+                <span class="nx">groupDOM</span><span class="o">:</span><span class="nx">parent</span><span class="p">,</span>
+                <span class="nx">members</span><span class="o">:</span><span class="nx">rtVl</span>
+            <span class="p">}</span>
+            <span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This is the main form validator class. This widget will allow developers to easily</span>
+<span class="cm">     * transform a standard form into a fully interactive form that handle almost all</span>
+<span class="cm">     * invalid inputs gracefully and improve user experience.</span>
+<span class="cm">     * @module Validator</span>
+<span class="cm">     * @title Form Validator Widget</span>
+<span class="cm">     * @requires yahoo.base, yahoo.dom, yahoo.event</span>
+<span class="cm">     * @namespace Validator</span>
+<span class="cm">     * @class Form</span>
+<span class="cm">     * @constructor</span>
+<span class="cm">     * @param {Object} config Configuration object containing everything for configuring the form validator object.</span>
+<span class="cm">     */</span>
+    <span class="kd">function</span> <span class="nx">_Validator</span><span class="p">(</span><span class="nx">config</span><span class="p">){</span>
+        <span class="nx">_Validator</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_initializeEvents</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">initializeInputs</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">initializeButtons</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">checkFormValues</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;inputfield:onchanged&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">onFormValueChanged</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;checkOnSubmit&#39;</span><span class="p">)){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">enableButtons</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="nx">_Validator</span><span class="p">.</span><span class="nx">CE_ONSUBMIT</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">_Validator</span><span class="p">.</span><span class="nx">staticFunctions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Static function that will set a boolean value for a property</span>
+<span class="cm">         * @method BOOLEANSETTER</span>
+<span class="cm">         * @static</span>
+<span class="cm">         * @param {boolean|string} val value of yes/no/true/false</span>
+<span class="cm">         * @return {booelan} a boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">BOOLEANSETTER</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isBoolean</span><span class="p">(</span><span class="nx">val</span><span class="p">)){</span>
+                <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">val</span><span class="p">)){</span>
+                <span class="k">return</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">return</span> <span class="nx">val</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">val</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">augment</span><span class="p">(</span><span class="nx">_Validator</span><span class="p">,</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">EventTarget</span><span class="p">);</span>
+    <span class="c1">// attributes</span>
+    <span class="nx">_Validator</span><span class="p">.</span><span class="nx">ATTRS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is used for custom inputs so their validator object can be stored in the form</span>
+<span class="cm">         * until the instance of is pulled out of an inline attribute</span>
+<span class="cm">         * @property customGlobal</span>
+<span class="cm">         * @type Object</span>
+<span class="cm">         */</span>
+        <span class="nx">customGlobal</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">{}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the form DOM object (or any DOM object) that surrounds</span>
+<span class="cm">         * the inputs of the form. (NOTE: Not all inputs HAVE to be inside the form dom if your using the JSON method</span>
+<span class="cm">         * to declar your fields).</span>
+<span class="cm">         * @config form</span>
+<span class="cm">         * @type HTMLElement</span>
+<span class="cm">         */</span>
+        <span class="nx">form</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">setter</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">YL</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">el</span><span class="p">)){</span>
+                    <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">rtVl</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">rtVl</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                    <span class="k">throw</span> <span class="s1">&#39;Invalid form: Form with id &#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39; does not exist&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Default value is false, when set to true, indicators on inputs, and the form&#39;s status will only</span>
+<span class="cm">         * update when the submit button is clicked.</span>
+<span class="cm">         * @config checkOnSubmit</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">checkOnSubmit</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+            <span class="nx">setter</span><span class="o">:</span><span class="nx">_Validator</span><span class="p">.</span><span class="nx">staticFunctions</span><span class="p">.</span><span class="nx">BOOLEANSETTER</span>
+
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is a function that is called after the form is checked, and is valid, but before</span>
+<span class="cm">         * the actual submit takes place.  If this function returns true, the form will submit,</span>
+<span class="cm">         * if it returns false, the form submission will not proceed.</span>
+<span class="cm">         * @config onSubmit</span>
+<span class="cm">         * @type Function</span>
+<span class="cm">         */</span>
+        <span class="nx">onSubmit</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the scope in which the onSubmit function will be executed.  If this</span>
+<span class="cm">         * is null, the function will be executed in the global scope.</span>
+<span class="cm">         * @config onSubmitScope</span>
+<span class="cm">         * @type Object</span>
+<span class="cm">         */</span>
+        <span class="nx">onSubmitScope</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is a setting passed onto each field added to the validator.  If</span>
+<span class="cm">         * this is true, the input field will create an incorrect indicator based</span>
+<span class="cm">         * setting in the configuration object passed to the field, or on the default settings passed to it</span>
+<span class="cm">         * from this class.</span>
+<span class="cm">         * @config createIncorrectIndicator</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">createIncorrectIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is a setting passed onto each field added to the validator.  If</span>
+<span class="cm">         * this is true, the input field will create an correct indicator based</span>
+<span class="cm">         * setting in the configuration object passed to the field, or on the default settings passed to it</span>
+<span class="cm">         * from this class.</span>
+<span class="cm">         * @config createCorrectIndicator</span>
+<span class="cm">         * @type boolean</span>
+<span class="cm">         */</span>
+        <span class="nx">createCorrectIndicator</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is the name of the type of dom object used to create the indicators.</span>
+<span class="cm">         * The default is SPAN</span>
+<span class="cm">         * @config defaultIndicatorDomType</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">defaultIndicatorDomType</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="s1">&#39;SPAN&#39;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The default css used when creating the incorrect indicator dynamically.  This</span>
+<span class="cm">         * css value is &#39;&#39; by default, and will be passed to any input field added</span>
+<span class="cm">         * to the validator if they do not already have this property set in their configuration.</span>
+<span class="cm">         * @config defaultIncorrectIndicatorCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">defaultIncorrectIndicatorCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="s1">&#39;&#39;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The default css used when creating the correct indicator dynamically.  This</span>
+<span class="cm">         * css value is &#39;&#39; by default, and will be passed to any input field added</span>
+<span class="cm">         * to the validator if they do not already have this property set in their configuration.</span>
+<span class="cm">         * @config defaultCorrectIndicatorCss</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">defaultCorrectIndicatorCss</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="s1">&#39;&#39;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The default text that will be used to set the innerHTML of the correct indicator</span>
+<span class="cm">         * when it is created dynamically. A non breakable space by default, and will be passed to any input field added</span>
+<span class="cm">         * to the validator if they do not already have this property set in their configuration.</span>
+<span class="cm">         * @config correctIndicatorText</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">correctIndicatorText</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="s1">&#39;&amp;nbsp;&#39;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * The default text that will be used to set the innerHTML of the incorrect indicator</span>
+<span class="cm">         * when it is created dynamically. A non breakable space by default, and will be passed to any input field added</span>
+<span class="cm">         * to the validator if they do not already have this property set in their configuration.</span>
+<span class="cm">         * @config incorrectIndicatorText</span>
+<span class="cm">         * @type string</span>
+<span class="cm">         */</span>
+        <span class="nx">incorrectIndicatorText</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="s1">&#39;&amp;nbsp;&#39;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will hold the JSON configuration for all inputs passed to the form validator.</span>
+<span class="cm">         * This will be intereated through, and the actual input field objects created</span>
+<span class="cm">         * when the form is initialized.</span>
+<span class="cm">         * @config fieldJSON</span>
+<span class="cm">         * @type Object[]</span>
+<span class="cm">         */</span>
+        <span class="nx">fieldJSON</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will hold the JSON configuration for all buttons passed to the form validator.</span>
+<span class="cm">         * This will be intereated through, and the actual button objects created</span>
+<span class="cm">         * when the form is initialized.</span>
+<span class="cm">         * @config buttonJSON</span>
+<span class="cm">         * @type Object[]</span>
+<span class="cm">         */</span>
+        <span class="nx">buttonJSON</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is a list of input field objects that represent inputs that are to be validated using the validator.</span>
+<span class="cm">         * @property inputFields</span>
+<span class="cm">         * @type BaseInputField[]</span>
+<span class="cm">         */</span>
+        <span class="nx">inputFields</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * List of buttons that will only enable if all the inputs on the form</span>
+<span class="cm">         * validator are correct.</span>
+<span class="cm">         * @property buttons</span>
+<span class="cm">         * @type Button[]</span>
+<span class="cm">         */</span>
+        <span class="nx">buttons</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * List of ids of submit buttons that are exempt from the form validator.  For instance, you may</span>
+<span class="cm">         * have a submit button that deletes the data pertaining to the record open in the form.</span>
+<span class="cm">         * Obviously the form should not have to be filled in correctly to do this.</span>
+<span class="cm">         * @config excludedButtons</span>
+<span class="cm">         * @type string[]</span>
+<span class="cm">         */</span>
+        <span class="nx">excludedButtons</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">_Validator</span><span class="p">.</span><span class="nx">NAME</span> <span class="o">=</span> <span class="s1">&#39;Validator&#39;</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * This is the event that is invoked the form is submitted.</span>
+<span class="cm">     * @event onsubmit</span>
+<span class="cm">     */</span>
+    <span class="nx">_Validator</span><span class="p">.</span><span class="nx">CE_ONSUBMIT</span> <span class="o">=</span> <span class="s1">&#39;form:onsubmit&#39;</span><span class="p">;</span>    
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">_Validator</span><span class="p">,</span><span class="nx">Y</span><span class="p">.</span><span class="nx">Base</span><span class="p">,{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This function will process the input field configurations in the fieldJSON</span>
+<span class="cm">         * property, and have all fields instantiated and initialized and stored</span>
+<span class="cm">         * in the inputFields property.</span>
+<span class="cm">         * @method initializeInputs</span>
+<span class="cm">         */</span>
+        <span class="nx">initializeInputs</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">fields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;fieldJSON&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">,</span><span class="nx">newField</span><span class="p">,</span><span class="nx">syncDom</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">newField</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span><span class="p">(</span><span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">atts</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+                <span class="nx">syncDom</span> <span class="o">=</span> <span class="nx">newField</span><span class="p">.</span><span class="nx">getInputDOM</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">syncDom</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">syncDom</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                    <span class="nx">newField</span><span class="p">.</span><span class="nx">synchronize</span><span class="p">(</span><span class="nx">syncDom</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">addInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">initializeInlineInputs</span><span class="p">();</span> <span class="c1">// now do the inline, done after so that if some data is inline, and some and json, we don&#39;t re-add the input field from inline</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will return an input with the given id.  Any inputs with a null</span>
+<span class="cm">         * id will never be returned from this function.</span>
+<span class="cm">         * @method getInput</span>
+<span class="cm">         * @return {BaseInputField} field with the given id.</span>
+<span class="cm">         */</span>
+        <span class="nx">getInput</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// if they use null, we don&#39;t want anything coming back, if we didn&#39;t exit here, an item with a null id might be returned, and that would be bad practice</span>
+            <span class="p">}</span>
+            <span class="kd">var</span> <span class="nx">inputFields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;inputFields&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">,</span><span class="nx">rtVl</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">inputFields</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getId</span><span class="p">()</span> <span class="o">==</span> <span class="nx">id</span><span class="p">){</span>
+                    <span class="k">return</span> <span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">isGroup</span><span class="p">()){</span>
+                    <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getInput</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">rtVl</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">rtVl</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                        <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will clear all inputs.  If silent mode is true, the indicators and buttons</span>
+<span class="cm">         * will not update until an input is changed, or a submit button is pressed.</span>
+<span class="cm">         * @method clear</span>
+<span class="cm">         * @param {boolean} silent If set to true, the form validator&#39;s status will not update.</span>
+<span class="cm">         */</span>
+        <span class="nx">clear</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">silent</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">inputFields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;inputFields&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">inputFields</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">clear</span><span class="p">(</span><span class="nx">silent</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will take the new field that is to be added to the form, and apply any</span>
+<span class="cm">         * default settings from the Form&#39;s defaults to the input field, if they haven&#39;t been set.</span>
+<span class="cm">         * For instance, defaultCorrectIndicatorCss will be applied to correctIndicatorCss property</span>
+<span class="cm">         * in the input field if that property has not been set for the newField</span>
+<span class="cm">         * @method setupInput</span>
+<span class="cm">         * @param {BaseInputField} newField Input field that is to be added to the Form.</span>
+<span class="cm">         */</span>
+        <span class="nx">setupInput</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">newField</span><span class="p">){</span>
+            <span class="c1">// setup the defaults</span>
+            <span class="nx">newField</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;createIncorrectIndicator&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;createIncorrectIndicator&#39;</span><span class="p">));</span>
+            <span class="nx">newField</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;createCorrectIndicator&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;createCorrectIndicator&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkAttribute</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="s1">&#39;defaultIncorrectIndicatorCss&#39;</span><span class="p">,</span><span class="s1">&#39;incorrectIndicatorCss&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkAttribute</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="s1">&#39;defaultCorrectIndicatorCss&#39;</span><span class="p">,</span><span class="s1">&#39;correctIndicatorCss&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkAttribute</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="s1">&#39;defaultIndicatorDomType&#39;</span><span class="p">,</span><span class="s1">&#39;indicatorType&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkAttribute</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="s1">&#39;correctIndicatorText&#39;</span><span class="p">,</span><span class="s1">&#39;correctIndicatorText&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkAttribute</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="s1">&#39;incorrectIndicatorText&#39;</span><span class="p">,</span><span class="s1">&#39;incorrectIndicatorText&#39;</span><span class="p">);</span>
+            <span class="nx">newField</span><span class="p">.</span><span class="nx">initializeInput</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+            <span class="c1">// if we are only checking on submit, then the events on the inputs do not need to be listened for</span>
+            <span class="c1">// this will gain us some performance.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;checkOnSubmit&#39;</span><span class="p">)){</span>
+                <span class="nx">newField</span><span class="p">.</span><span class="nx">initializeEvents</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="nx">newField</span><span class="p">.</span><span class="nx">addTarget</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will add the given field to the form validator.  It will first, setup</span>
+<span class="cm">         * the input using the setupInput function, then it will add it to it&#39;s list</span>
+<span class="cm">         * of input fields.</span>
+<span class="cm">         * @method addInput</span>
+<span class="cm">         * @param {BaseInputField} newField Input field that is to be added to the Form.</span>
+<span class="cm">         */</span>
+        <span class="nx">addInput</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">newField</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setupInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">inputFields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;inputFields&#39;</span><span class="p">);</span>
+            <span class="nx">inputFields</span><span class="p">[</span><span class="nx">inputFields</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newField</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This function will initialize inputs that are declared inline.  If they are already</span>
+<span class="cm">         * declared in the JSON, then their JSON definition is updated with any settings that are set inline.</span>
+<span class="cm">         * @method initializeInlineInputs</span>
+<span class="cm">         */</span>
+        <span class="nx">initializeInlineInputs</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">inlineFields</span> <span class="o">=</span> <span class="nx">GETINLINEDECLARATIONS</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">)),</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">inlineFields</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">addInlineInput</span><span class="p">(</span><span class="nx">inlineFields</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will add all the member doms to the given group JSON def.</span>
+<span class="cm">         * @method constructInlineGroup</span>
+<span class="cm">         */</span>
+        <span class="nx">constructInlineGroup</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">group</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">memberDOMS</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">members</span><span class="p">,</span><span class="nx">theGroup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="nx">group</span><span class="p">.</span><span class="nx">groupDOM</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span><span class="nx">groupNew</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">tempInput</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">newField</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">theGroup</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">theGroup</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="nx">groupNew</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="nx">theGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">GroupBaseField</span><span class="p">({</span>
+                    <span class="nx">groupDOM</span><span class="o">:</span><span class="nx">group</span><span class="p">.</span><span class="nx">groupDOM</span>
+                    <span class="p">},</span><span class="kc">false</span><span class="p">);</span>
+                <span class="nx">theGroup</span><span class="p">.</span><span class="nx">synchronize</span><span class="p">(</span><span class="nx">group</span><span class="p">.</span><span class="nx">groupDOM</span><span class="p">);</span>
+            <span class="p">}</span>
+            
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">memberDOMS</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">tempInput</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">isGroup</span><span class="p">){</span>
+                    <span class="nx">theGroup</span><span class="p">.</span><span class="nx">addInput</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">constructInlineGroup</span><span class="p">(</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+                <span class="p">}</span>
+                <span class="c1">// if the field exists already, don&#39;t do anything</span>
+                <span class="c1">// For inputs with no ids, they cannot be put in through JSON, only inline, so we don&#39;t need to worry</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">tempInput</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">tempInput</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">type</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">[</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:type&#39;</span><span class="p">)];</span>
+                    <span class="nx">newField</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">({</span>
+                        <span class="nx">inputDOM</span><span class="o">:</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+                        <span class="p">},</span><span class="kc">false</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">setupInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">);</span>
+                    <span class="nx">theGroup</span><span class="p">.</span><span class="nx">addInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">,</span><span class="k">this</span><span class="p">);</span>
+                    <span class="nx">newField</span><span class="p">.</span><span class="nx">synchronize</span><span class="p">(</span><span class="nx">memberDOMS</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">groupNew</span><span class="p">){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">setupInput</span><span class="p">(</span><span class="nx">theGroup</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">theGroup</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will take the given inputDOM, extract all form validator specific</span>
+<span class="cm">         * attributes from the DOM object, and create an input field from that and add</span>
+<span class="cm">         * it to this form validator.</span>
+<span class="cm">         * @method addInlineInput</span>
+<span class="cm">         * @param {HTMLEelement} inputDOM Element that has form validator attributes declared.</span>
+<span class="cm">         */</span>
+        <span class="nx">addInlineInput</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">inputDOM</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">newField</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span><span class="nx">tempInput</span><span class="p">,</span><span class="nx">type</span><span class="p">;</span>
+            <span class="c1">// if it is a group, only the group is added, the members belong only to the group</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">inputDOM</span><span class="p">.</span><span class="nx">isGroup</span><span class="p">){</span>
+                <span class="nx">newField</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructInlineGroup</span><span class="p">(</span><span class="nx">inputDOM</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">addInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="nx">tempInput</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="nx">inputDOM</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">tempInput</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">tempInput</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                    <span class="nx">inputDOM</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s1">&#39;formvalidator:&#39;</span> <span class="o">+</span> <span class="nx">guid</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="nx">type</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">[</span><span class="nx">inputDOM</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;formvalidator:type&#39;</span><span class="p">)];</span>
+                <span class="nx">newField</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">({</span>
+                    <span class="nx">inputDOM</span><span class="o">:</span><span class="nx">inputDOM</span>
+                <span class="p">},</span><span class="kc">false</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">addInput</span><span class="p">(</span><span class="nx">newField</span><span class="p">);</span>
+                <span class="nx">newField</span><span class="p">.</span><span class="nx">synchronize</span><span class="p">(</span><span class="nx">inputDOM</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This is used to check to see if an attributes has been set on the target, if</span>
+<span class="cm">         * not then the attName property is used to retreive a default value set in the Form&#39;s</span>
+<span class="cm">         * main object.</span>
+<span class="cm">         * @method checkAttribute</span>
+<span class="cm">         * @param {BaseInputField} target The input field who&#39;s attribute is being checked</span>
+<span class="cm">         * @param {string} attName Name of the attribute in the main form validator object that holds the Default value if the target&#39;s targetAttName has no value</span>
+<span class="cm">         * @param {strubg} targetAttName Name of the target&#39;s attribute that is being checked for a value</span>
+<span class="cm">         */</span>
+        <span class="nx">checkAttribute</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">attName</span><span class="p">,</span><span class="nx">targetAttName</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">targetAttValue</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">targetAttName</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">targetAttValue</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">targetAttValue</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="nx">target</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">targetAttName</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">attName</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will initialize all buttons given in the button list, well as</span>
+<span class="cm">         * any submit buttons in the form not in the exclude list</span>
+<span class="cm">         * @method initializeButtons</span>
+<span class="cm">         */</span>
+        <span class="nx">initializeButtons</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">buttonJSON</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;buttonJSON&#39;</span><span class="p">),</span>
+            <span class="nx">buttons</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">),</span>
+            <span class="nx">excludedButtons</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;excludedButtons&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">,</span><span class="nx">submitButtons</span><span class="p">,</span><span class="nx">found</span><span class="p">,</span><span class="nx">buttonEl</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buttonJSON</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">buttons</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Button</span><span class="p">(</span><span class="nx">buttonJSON</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+                <span class="nx">buttonEl</span> <span class="o">=</span> <span class="nx">buttons</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;buttonEl&#39;</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">buttonEl</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;button&#39;</span><span class="p">){</span>
+                    <span class="nx">Y</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">submitForm</span><span class="p">,</span><span class="nx">buttonEl</span><span class="p">,</span><span class="k">this</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="c1">// now we find all buttons in the form that are NOT excluded.</span>
+            <span class="nx">submitButtons</span> <span class="o">=</span> <span class="nx">GETSUBMITBUTTONS</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">));</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">submitButtons</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">excludedButtons</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="o">++</span><span class="nx">j</span><span class="p">){</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">excludedButtons</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="nx">submitButtons</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">){</span>
+                        <span class="nx">found</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">){</span>
+                    <span class="nx">buttons</span><span class="p">[</span><span class="nx">buttons</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span>
+                        <span class="nx">buttonEl</span><span class="o">:</span><span class="nx">submitButtons</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+                    <span class="p">});</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will call the form&#39;s submit method.  If the form is not valid, the form</span>
+<span class="cm">         * will not submit.</span>
+<span class="cm">         * @method submitForm</span>
+<span class="cm">         */</span>
+        <span class="nx">submitForm</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">submit</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">form</span><span class="p">.</span><span class="nx">submit</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="nx">form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will initialize the submit and reset events on the form validator.  The form</span>
+<span class="cm">         * validator will listen for these events and cancel any if need be.</span>
+<span class="cm">         * @method _initializeEvents</span>
+<span class="cm">         */</span>
+        <span class="nx">_initializeEvents</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">Y</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">_onFormSubmit</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">),</span><span class="k">this</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+            <span class="nx">Y</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">_onFormReset</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">),</span><span class="k">this</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will get called when the form is submitted.  This will prevent the event</span>
+<span class="cm">         * from succeeding if the form is invalid.</span>
+<span class="cm">         * @method _onFormSubmit</span>
+<span class="cm">         * @param {Event} ev Event that caused the submit</span>
+<span class="cm">         */</span>
+        <span class="nx">_onFormSubmit</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">){</span>            
+            <span class="kd">var</span> <span class="nx">onSubmitFunc</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;onSubmit&#39;</span><span class="p">),</span>
+            <span class="nx">onSubmitScope</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;onSubmitScope&#39;</span><span class="p">),</span>
+            <span class="nx">rtVl</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">onSubmitFunc</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">onSubmitFunc</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">onSubmitScope</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">onSubmitScope</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                    <span class="nx">onSubmitScope</span><span class="p">.</span><span class="nx">anonymousCall</span> <span class="o">=</span> <span class="nx">onSubmitFunc</span><span class="p">;</span>
+                    <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">onSubmitScope</span><span class="p">.</span><span class="nx">anonymousCall</span><span class="p">();</span>
+                    <span class="nx">onSubmitScope</span><span class="p">.</span><span class="nx">anonymousCall</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">onSubmitFunc</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">checkFormValues</span><span class="p">()){</span>
+                <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">rtVl</span><span class="p">){</span>
+                <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">_Validator</span><span class="p">.</span><span class="nx">CE_ONSUBMIT</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will get called when the form is reset, this will cause the form to recheck all it&#39;s values</span>
+<span class="cm">         * and show the proper indicators.</span>
+<span class="cm">         * @method _onFormReset</span>
+<span class="cm">         * @param {Event} ev Event that caused the reset.</span>
+<span class="cm">         */</span>
+        <span class="nx">_onFormReset</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">){</span>
+            <span class="c1">//console.debug(&#39;form reset&#39;);</span>
+            <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">that</span><span class="p">.</span><span class="nx">checkFormValues</span><span class="p">();</span>
+            <span class="p">},</span><span class="mi">100</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkFormValues</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Called when a value in the form changes.  This will determine if the submit buttons</span>
+<span class="cm">         * are enabled and disabled.</span>
+<span class="cm">         * @method onFormValueChanged</span>
+<span class="cm">         */</span>
+        <span class="nx">onFormValueChanged</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">inputFields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;inputFields&#39;</span><span class="p">),</span>
+            <span class="nx">rtVl</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">inputFields</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">rtVl</span> <span class="o">&amp;&amp;</span> <span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">isValid</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="c1">// now if rtVl is false, we disable all buttons, otherwise, we enable all buttons.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">rtVl</span><span class="p">){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">enableButtons</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">disableButtons</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Checks the form values and makes sure the proper indicators are showing and returns</span>
+<span class="cm">         * true if the form is considered valid.</span>
+<span class="cm">         * @method checkFormValues</span>
+<span class="cm">         * @return {boolean} true if the form is valid.</span>
+<span class="cm">         */</span>
+        <span class="nx">checkFormValues</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">inputFields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;inputFields&#39;</span><span class="p">),</span>
+            <span class="nx">rtVl</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">inputFields</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">rtVl</span> <span class="o">=</span> <span class="nx">inputFields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checkIndicators</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">rtVl</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// now if rtVl is false, we disable all buttons, otherwise, we enable all buttons.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">rtVl</span><span class="p">){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">enableButtons</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">disableButtons</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">rtVl</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will disable all submit buttons</span>
+<span class="cm">         * @method disableButtons</span>
+<span class="cm">         */</span>
+        <span class="nx">disableButtons</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;checkOnSubmit&#39;</span><span class="p">)){</span>
+                <span class="k">return</span><span class="p">;</span> <span class="c1">// don&#39;t disable buttons if its check on submit only</span>
+            <span class="p">}</span>
+            <span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buttons</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">buttons</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">disable</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * This will enable all submit buttons</span>
+<span class="cm">         * @method enableButtons</span>
+<span class="cm">         */</span>
+        <span class="nx">enableButtons</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">),</span><span class="nx">i</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buttons</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+                <span class="nx">buttons</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">enable</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Validator</span> <span class="o">=</span> <span class="nx">_Validator</span><span class="p">;</span>
+<span class="p">},</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,{</span>
+    <span class="nx">requires</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">,</span><span class="s1">&#39;dom&#39;</span><span class="p">,</span><span class="s1">&#39;event&#39;</span><span class="p">],</span>
+    <span class="nx">use</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">,</span><span class="s1">&#39;Validator.Button&#39;</span><span class="p">]</span>
+    <span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_Validator.html" title="Validator">Validator</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Validator.BaseInputField.html" title="Validator.BaseInputField">Validator.BaseInputField</a></li>
+                                <li class=""><a href="Validator.Button.html" title="Validator.Button">Validator.Button</a></li>
+                                <li class=""><a href="Validator.CheckboxField.html" title="Validator.CheckboxField">Validator.CheckboxField</a></li>
+                                <li class=""><a href="Validator.CustomField.html" title="Validator.CustomField">Validator.CustomField</a></li>
+                                <li class=""><a href="Validator.DoubleField.html" title="Validator.DoubleField">Validator.DoubleField</a></li>
+                                <li class=""><a href="Validator.Form.html" title="Validator.Form">Validator.Form</a></li>
+                                <li class=""><a href="Validator.GLOBAL.html" title="Validator.GLOBAL">Validator.GLOBAL</a></li>
+                                <li class=""><a href="Validator.GroupBaseField.html" title="Validator.GroupBaseField">Validator.GroupBaseField</a></li>
+                                <li class=""><a href="Validator.IntegerField.html" title="Validator.IntegerField">Validator.IntegerField</a></li>
+                                <li class=""><a href="Validator.MatchField.html" title="Validator.MatchField">Validator.MatchField</a></li>
+                                <li class=""><a href="Validator.PasswordField.html" title="Validator.PasswordField">Validator.PasswordField</a></li>
+                                <li class=""><a href="Validator.SelectField.html" title="Validator.SelectField">Validator.SelectField</a></li>
+                                <li class=""><a href="Validator.TextBaseField.html" title="Validator.TextBaseField">Validator.TextBaseField</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="BaseInputField.js.html" title="BaseInputField.js">BaseInputField.js</a></li>
+                                <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
+                                <li class=""><a href="CheckboxField.js.html" title="CheckboxField.js">CheckboxField.js</a></li>
+                                <li class=""><a href="CustomField.js.html" title="CustomField.js">CustomField.js</a></li>
+                                <li class=""><a href="DoubleField.js.html" title="DoubleField.js">DoubleField.js</a></li>
+                                <li class=""><a href="GroupBaseField.js.html" title="GroupBaseField.js">GroupBaseField.js</a></li>
+                                <li class=""><a href="IntegerField.js.html" title="IntegerField.js">IntegerField.js</a></li>
+                                <li class=""><a href="MatchField.js.html" title="MatchField.js">MatchField.js</a></li>
+                                <li class=""><a href="PasswordField.js.html" title="PasswordField.js">PasswordField.js</a></li>
+                                <li class=""><a href="SelectField.js.html" title="SelectField.js">SelectField.js</a></li>
+                                <li class=""><a href="TextBaseField.js.html" title="TextBaseField.js">TextBaseField.js</a></li>
+                                <li class="selected"><a href="Validator.js.html" title="Validator.js">Validator.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Validator.Form.html#method_addInlineInput", "access": "", "host": "Validator.Form", "type": "method", "name": "addInlineInput"}, {"url": "Validator.GroupBaseField.html#method_addInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "addInput"}, {"url": "Validator.Form.html#method_addInput", "access": "", "host": "Validator.Form", "type": "method", "name": "addInput"}, {"url": "Validator.BaseInputField.html#method_BOOLEANSETTER", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "BOOLEANSETTER"}, {"url": "Validator.Form.html#method_BOOLEANSETTER", "access": "", "host": "Validator.Form", "type": "method", "name": "BOOLEANSETTER"}, {"url": "Validator.Button.html#config_buttonEl", "access": "", "host": "Validator.Button", "type": "config", "name": "buttonEl"}, {"url": "Validator.Form.html#config_buttonJSON", "access": "", "host": "Validator.Form", "type": "config", "name": "buttonJSON"}, {"url": "Validator.Form.html#property_buttons", "access": "", "host": "Validator.Form", "type": "property", "name": "buttons"}, {"url": "Validator.MatchField.html#config_caseSensitive", "access": "", "host": "Validator.MatchField", "type": "config", "name": "caseSensitive"}, {"url": "Validator.Form.html#method_checkAttribute", "access": "", "host": "Validator.Form", "type": "method", "name": "checkAttribute"}, {"url": "Validator.TextBaseField.html#method_checkFormat", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkFormat"}, {"url": "Validator.Form.html#method_checkFormValues", "access": "", "host": "Validator.Form", "type": "method", "name": "checkFormValues"}, {"url": "Validator.BaseInputField.html#method_checkIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CheckboxField.html#method_checkIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.CustomField.html#method_checkIndicators", "access": "", "host": "Validator.CustomField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.GroupBaseField.html#method_checkIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.PasswordField.html#method_checkIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.TextBaseField.html#method_checkIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "checkIndicators"}, {"url": "Validator.Form.html#config_checkOnSubmit", "access": "", "host": "Validator.Form", "type": "config", "name": "checkOnSubmit"}, {"url": "Validator.BaseInputField.html#method_clear", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "clear"}, {"url": "Validator.CheckboxField.html#method_clear", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "clear"}, {"url": "Validator.CustomField.html#method_clear", "access": "", "host": "Validator.CustomField", "type": "method", "name": "clear"}, {"url": "Validator.GroupBaseField.html#method_clear", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "clear"}, {"url": "Validator.SelectField.html#method_clear", "access": "", "host": "Validator.SelectField", "type": "method", "name": "clear"}, {"url": "Validator.TextBaseField.html#method_clear", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "clear"}, {"url": "Validator.Form.html#method_clear", "access": "", "host": "Validator.Form", "type": "method", "name": "clear"}, {"url": "Validator.Form.html#method_constructInlineGroup", "access": "", "host": "Validator.Form", "type": "method", "name": "constructInlineGroup"}, {"url": "Validator.BaseInputField.html#config_correctCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicator"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_correctIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "correctIndicatorText"}, {"url": "Validator.Form.html#config_correctIndicatorText", "access": "", "host": "Validator.Form", "type": "config", "name": "correctIndicatorText"}, {"url": "Validator.BaseInputField.html#config_createCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createCorrectIndicator"}, {"url": "Validator.Form.html#config_createCorrectIndicator", "access": "", "host": "Validator.Form", "type": "config", "name": "createCorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_createIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "createIncorrectIndicator"}, {"url": "Validator.Form.html#config_createIncorrectIndicator", "access": "", "host": "Validator.Form", "type": "config", "name": "createIncorrectIndicator"}, {"url": "Validator.Form.html#property_customGlobal", "access": "", "host": "Validator.Form", "type": "property", "name": "customGlobal"}, {"url": "Validator.Form.html#config_defaultCorrectIndicatorCss", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultCorrectIndicatorCss"}, {"url": "Validator.Form.html#config_defaultIncorrectIndicatorCss", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultIncorrectIndicatorCss"}, {"url": "Validator.Form.html#config_defaultIndicatorDomType", "access": "", "host": "Validator.Form", "type": "config", "name": "defaultIndicatorDomType"}, {"url": "Validator.BaseInputField.html#method_destructor", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "destructor"}, {"url": "Validator.BaseInputField.html#method_disable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "disable"}, {"url": "Validator.Button.html#method_disable", "access": "", "host": "Validator.Button", "type": "method", "name": "disable"}, {"url": "Validator.CheckboxField.html#method_disable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "disable"}, {"url": "Validator.CustomField.html#method_disable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "disable"}, {"url": "Validator.GroupBaseField.html#method_disable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "disable"}, {"url": "Validator.TextBaseField.html#method_disable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "disable"}, {"url": "Validator.Form.html#method_disableButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "disableButtons"}, {"url": "Validator.BaseInputField.html#config_disabled", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "disabled"}, {"url": "Validator.BaseInputField.html#property_DOUBLEREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "DOUBLEREGEX"}, {"url": "Validator.BaseInputField.html#property_EMAILREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "EMAILREGEX"}, {"url": "Validator.SelectField.html#config_emptyValue", "access": "", "host": "Validator.SelectField", "type": "config", "name": "emptyValue"}, {"url": "Validator.BaseInputField.html#method_enable", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "enable"}, {"url": "Validator.Button.html#method_enable", "access": "", "host": "Validator.Button", "type": "method", "name": "enable"}, {"url": "Validator.CheckboxField.html#method_enable", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "enable"}, {"url": "Validator.CustomField.html#method_enable", "access": "", "host": "Validator.CustomField", "type": "method", "name": "enable"}, {"url": "Validator.GroupBaseField.html#method_enable", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "enable"}, {"url": "Validator.TextBaseField.html#method_enable", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "enable"}, {"url": "Validator.Form.html#method_enableButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "enableButtons"}, {"url": "Validator.BaseInputField.html#method__evtOnChange", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "_evtOnChange"}, {"url": "Validator.Form.html#config_excludedButtons", "access": "", "host": "Validator.Form", "type": "config", "name": "excludedButtons"}, {"url": "Validator.Form.html#config_fieldJSON", "access": "", "host": "Validator.Form", "type": "config", "name": "fieldJSON"}, {"url": "Validator.Form.html#config_form", "access": "", "host": "Validator.Form", "type": "config", "name": "form"}, {"url": "Validator.TextBaseField.html#config_formatter", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "formatter"}, {"url": "Validator.BaseInputField.html#method_getId", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getId"}, {"url": "Validator.CheckboxField.html#method_getId", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getId"}, {"url": "Validator.CustomField.html#method_getId", "access": "", "host": "Validator.CustomField", "type": "method", "name": "getId"}, {"url": "Validator.GroupBaseField.html#method_getId", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getId"}, {"url": "Validator.TextBaseField.html#method_getId", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getId"}, {"url": "Validator.GLOBAL.html#method_GETINLINEDECLARATIONS", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "GETINLINEDECLARATIONS"}, {"url": "Validator.GroupBaseField.html#method_getInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInput"}, {"url": "Validator.Form.html#method_getInput", "access": "", "host": "Validator.Form", "type": "method", "name": "getInput"}, {"url": "Validator.BaseInputField.html#method_getInputDOM", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.CheckboxField.html#method_getInputDOM", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.GroupBaseField.html#method_getInputDOM", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.TextBaseField.html#method_getInputDOM", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "getInputDOM"}, {"url": "Validator.PasswordField.html#method_getMatchedLevel", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "getMatchedLevel"}, {"url": "Validator.GLOBAL.html#method_GETSUBMITBUTTONS", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "GETSUBMITBUTTONS"}, {"url": "Validator.GroupBaseField.html#config_groupDOM", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "groupDOM"}, {"url": "Validator.GLOBAL.html#method_guid", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "guid"}, {"url": "Validator.CustomField.html#config_id", "access": "", "host": "Validator.CustomField", "type": "config", "name": "id"}, {"url": "Validator.GroupBaseField.html#config_id", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "id"}, {"url": "Validator.BaseInputField.html#config_incorrectCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicator"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorCss", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorCss"}, {"url": "Validator.BaseInputField.html#config_incorrectIndicatorText", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "incorrectIndicatorText"}, {"url": "Validator.Form.html#config_incorrectIndicatorText", "access": "", "host": "Validator.Form", "type": "config", "name": "incorrectIndicatorText"}, {"url": "Validator.BaseInputField.html#config_indicatorType", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "indicatorType"}, {"url": "Validator.Form.html#method_initializeButtons", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeButtons"}, {"url": "Validator.BaseInputField.html#method_initializeEvents", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.CheckboxField.html#method_initializeEvents", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.GroupBaseField.html#method_initializeEvents", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.SelectField.html#method_initializeEvents", "access": "", "host": "Validator.SelectField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.TextBaseField.html#method_initializeEvents", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeEvents"}, {"url": "Validator.Form.html#method__initializeEvents", "access": "", "host": "Validator.Form", "type": "method", "name": "_initializeEvents"}, {"url": "Validator.Form.html#method_initializeInlineInputs", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeInlineInputs"}, {"url": "Validator.BaseInputField.html#method_initializeInput", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializeInput"}, {"url": "Validator.CheckboxField.html#method_initializeInput", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "initializeInput"}, {"url": "Validator.GroupBaseField.html#method_initializeInput", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.TextBaseField.html#method_initializeInput", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "initializeInput"}, {"url": "Validator.Form.html#method_initializeInputs", "access": "", "host": "Validator.Form", "type": "method", "name": "initializeInputs"}, {"url": "Validator.BaseInputField.html#method_initializer", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "initializer"}, {"url": "Validator.CheckboxField.html#config_inputDOM", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "inputDOM"}, {"url": "Validator.TextBaseField.html#config_inputDOM", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "inputDOM"}, {"url": "Validator.Form.html#property_inputFields", "access": "", "host": "Validator.Form", "type": "property", "name": "inputFields"}, {"url": "Validator.BaseInputField.html#method_inputIsOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "inputIsOn"}, {"url": "Validator.BaseInputField.html#method_insertBeside", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CheckboxField.html#method_insertBeside", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "insertBeside"}, {"url": "Validator.CustomField.html#method_insertBeside", "access": "", "host": "Validator.CustomField", "type": "method", "name": "insertBeside"}, {"url": "Validator.GroupBaseField.html#method_insertBeside", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.TextBaseField.html#method_insertBeside", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "insertBeside"}, {"url": "Validator.BaseInputField.html#property_INTEGERREGEX", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "INTEGERREGEX"}, {"url": "Validator.BaseInputField.html#method_isEmpty", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CheckboxField.html#method_isEmpty", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isEmpty"}, {"url": "Validator.CustomField.html#method_isEmpty", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GroupBaseField.html#method_isEmpty", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.SelectField.html#method_isEmpty", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isEmpty"}, {"url": "Validator.TextBaseField.html#method_isEmpty", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isEmpty"}, {"url": "Validator.GLOBAL.html#method_ISFORM", "access": "", "host": "Validator.GLOBAL", "type": "method", "name": "ISFORM"}, {"url": "Validator.GroupBaseField.html#method_isGroup", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isGroup"}, {"url": "Validator.BaseInputField.html#config_isOn", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "isOn"}, {"url": "Validator.BaseInputField.html#method_isValid", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "isValid"}, {"url": "Validator.CheckboxField.html#method_isValid", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "isValid"}, {"url": "Validator.CustomField.html#method_isValid", "access": "", "host": "Validator.CustomField", "type": "method", "name": "isValid"}, {"url": "Validator.DoubleField.html#method_isValid", "access": "", "host": "Validator.DoubleField", "type": "method", "name": "isValid"}, {"url": "Validator.GroupBaseField.html#method_isValid", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.IntegerField.html#method_isValid", "access": "", "host": "Validator.IntegerField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#method_isValid", "access": "", "host": "Validator.MatchField", "type": "method", "name": "isValid"}, {"url": "Validator.PasswordField.html#method_isValid", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "isValid"}, {"url": "Validator.SelectField.html#method_isValid", "access": "", "host": "Validator.SelectField", "type": "method", "name": "isValid"}, {"url": "Validator.TextBaseField.html#method_isValid", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "isValid"}, {"url": "Validator.MatchField.html#config_matchDOM", "access": "", "host": "Validator.MatchField", "type": "config", "name": "matchDOM"}, {"url": "Validator.DoubleField.html#config_max", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "max"}, {"url": "Validator.PasswordField.html#config_max", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "max"}, {"url": "Validator.DoubleField.html#config_maxDecimalPlaces", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxDecimalPlaces"}, {"url": "Validator.DoubleField.html#config_maxInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "maxInclusive"}, {"url": "Validator.BaseInputField.html#property_MAX_INTEGER", "access": "", "host": "Validator.BaseInputField", "type": "property", "name": "MAX_INTEGER"}, {"url": "Validator.TextBaseField.html#config_maxLength", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "maxLength"}, {"url": "Validator.GroupBaseField.html#config_maxValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "maxValid"}, {"url": "Validator.PasswordField.html#config_med", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "med"}, {"url": "Validator.PasswordField.html#config_medIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "medIndicator"}, {"url": "Validator.PasswordField.html#property_MediumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MediumPassword"}, {"url": "Validator.GroupBaseField.html#property_members", "access": "", "host": "Validator.GroupBaseField", "type": "property", "name": "members"}, {"url": "Validator.GroupBaseField.html#config_membersJSON", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "membersJSON"}, {"url": "Validator.DoubleField.html#config_min", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#config_min", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "min"}, {"url": "Validator.PasswordField.html#property_MinimumPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "MinimumPassword"}, {"url": "Validator.DoubleField.html#config_minInclusive", "access": "", "host": "Validator.DoubleField", "type": "config", "name": "minInclusive"}, {"url": "Validator.PasswordField.html#config_minIndicator", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "minIndicator"}, {"url": "Validator.GroupBaseField.html#config_minValid", "access": "", "host": "Validator.GroupBaseField", "type": "config", "name": "minValid"}, {"url": "Validator.BaseInputField.html#event_onchange", "access": "", "host": "Validator.BaseInputField", "type": "event", "name": "onchange"}, {"url": "Validator.Form.html#method__onFormReset", "access": "", "host": "Validator.Form", "type": "method", "name": "_onFormReset"}, {"url": "Validator.Form.html#method__onFormSubmit", "access": "", "host": "Validator.Form", "type": "method", "name": "_onFormSubmit"}, {"url": "Validator.Form.html#method_onFormValueChanged", "access": "", "host": "Validator.Form", "type": "method", "name": "onFormValueChanged"}, {"url": "Validator.Form.html#event_onsubmit", "access": "", "host": "Validator.Form", "type": "event", "name": "onsubmit"}, {"url": "Validator.Form.html#config_onSubmit", "access": "", "host": "Validator.Form", "type": "config", "name": "onSubmit"}, {"url": "Validator.Form.html#config_onSubmitScope", "access": "", "host": "Validator.Form", "type": "config", "name": "onSubmitScope"}, {"url": "Validator.BaseInputField.html#config_optional", "access": "", "host": "Validator.BaseInputField", "type": "config", "name": "optional"}, {"url": "Validator.TextBaseField.html#config_regex", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "regex"}, {"url": "Validator.PasswordField.html#config_requiredLevel", "access": "", "host": "Validator.PasswordField", "type": "config", "name": "requiredLevel"}, {"url": "Validator.BaseInputField.html#method_setupDomItem.", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupDomItem."}, {"url": "Validator.BaseInputField.html#method_setupIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "setupIndicators"}, {"url": "Validator.Form.html#method_setupInput", "access": "", "host": "Validator.Form", "type": "method", "name": "setupInput"}, {"url": "Validator.BaseInputField.html#method_showCorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showCorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showCorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showCorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.GroupBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.PasswordField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.TextBaseField.html#method_showIncorrectIndicator", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showIncorrectIndicator"}, {"url": "Validator.BaseInputField.html#method_showNoIndicators", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.CheckboxField.html#method_showNoIndicators", "access": "", "host": "Validator.CheckboxField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.GroupBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showNoIndicators", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.TextBaseField.html#method_showNoIndicators", "access": "", "host": "Validator.TextBaseField", "type": "method", "name": "showNoIndicators"}, {"url": "Validator.PasswordField.html#method_showPasswordIndicator", "access": "", "host": "Validator.PasswordField", "type": "method", "name": "showPasswordIndicator"}, {"url": "Validator.BaseInputField.html#method_standardElSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardElSetter"}, {"url": "Validator.BaseInputField.html#method_standardRegexSetter", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "standardRegexSetter"}, {"url": "Validator.PasswordField.html#property_StrongPassword", "access": "", "host": "Validator.PasswordField", "type": "property", "name": "StrongPassword"}, {"url": "Validator.Form.html#method_submitForm", "access": "", "host": "Validator.Form", "type": "method", "name": "submitForm"}, {"url": "Validator.BaseInputField.html#method_synchronize", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "synchronize"}, {"url": "Validator.TextBaseField.html#config_textType", "access": "", "host": "Validator.TextBaseField", "type": "config", "name": "textType"}, {"url": "Validator.BaseInputField.html#method_turnOff", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOff"}, {"url": "Validator.CustomField.html#method_turnOff", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOff"}, {"url": "Validator.GroupBaseField.html#method_turnOff", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOff"}, {"url": "Validator.BaseInputField.html#method_turnOn", "access": "", "host": "Validator.BaseInputField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#method_turnOn", "access": "", "host": "Validator.CustomField", "type": "method", "name": "turnOn"}, {"url": "Validator.GroupBaseField.html#method_turnOn", "access": "", "host": "Validator.GroupBaseField", "type": "method", "name": "turnOn"}, {"url": "Validator.CustomField.html#config_validatorObject", "access": "", "host": "Validator.CustomField", "type": "config", "name": "validatorObject"}, {"url": "Validator.CheckboxField.html#config_validWhenChecked", "access": "", "host": "Validator.CheckboxField", "type": "config", "name": "validWhenChecked"}];
+</script>
+</body>
+</html>
