@@ -71,9 +71,6 @@
             <h3>Examples</h3>
             <p>
                 Examples of how to use the form validator are below.
-                <!--<p style="font-weight:bold;font-size:12pt;">
-                    NOTE: For the external JSON file example, the page must be running on a server in order for the JSON file to be loaded properly.
-                </p>-->
                 <ul>
                     <li>Basic Example - A very basic example of how to use the form validator. Very simple easy to follow [<a href="examples/json/basicExample.html">json</a>|<a href="examples/inline/basicExample.html">inline</a>]</li>
                     <li>Dynamic Validators - This is the basic example again, except this time, validators and indicators are created dynamically. [<a href="examples/json/dynamicValidatorsExample.html">json</a>|<a href="examples/inline/dynamicValidatorsExample.html">inline</a>]</li>
@@ -91,6 +88,8 @@
                     <li>Form inside a form Example - This will show you how a form can be nested inside another form [<a href="examples/json/formInsideAFormExample.html">json</a>|<a href="examples/inline/formInsideAFormExample.html">inline</a>]</li>
                     <li>Checkbox - Example of how to use checkboxes on their own [<a href="examples/json/checkboxExample.html">json</a>|<a href="examples/inline/checkboxExample.html">inline</a>]</li>
                     <li>Checkbox Group - Example of how to use checkboxes inside a group [<a href="examples/json/checkboxGroupExample.html">json</a>|<a href="examples/inline/checkboxGroupExample.html">inline</a>]</li>
+                    <li>Validation Prompt - Example of how instructions can be shown as the user fills in a form field [<a href="examples/json/groupCheckPromptExample.html">JSON Only</a>]</li>
+                    <li>Validation Prompt (Custom function) - Example of how a custom function can be defined to manage the validation prompt [<a href="examples/json/validationPromptExample.html">JSON Only</a>]</li>
                 </ul>
             </p>
         </div>
@@ -191,6 +190,18 @@
                             optional:false, // (Optional) false by default, the field is considered valid if not filled in, but must be filled in properly if filled in at all.
                             isOn:true, // (Optional) On by default, if set to off, it is excluded from all form validator considerations.  If its a group, its child elements are not considered either
                             disabled:false, // (Optional) false by default, but when true, the input is disabled.
+                            validationPrompt: { // (Optional) this will show instructions when the field is not empty, but is not valid.
+                                fn: function(el, field) { // define a function for maximum flexibility.  If you do not define a function, then it will simply show the el if the input is not empty and not valid/
+                                    if (field.isEmpty() || field.isValid()) {
+                                        el.style.display = 'none';
+                                    }
+                                    else {
+                                        el.innerHTML = 'Age must be a valid number between 10 and 100';
+                                        el.style.display = '';
+                                    }
+                                },
+                                el: 'agePrompt'
+                            }
                         }
                     }
                 </textarea>
